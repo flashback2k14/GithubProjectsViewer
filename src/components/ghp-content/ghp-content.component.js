@@ -1,12 +1,12 @@
-import bus from "./../helper/bus.js";
-import FetchHelper from "./../helper/fetchHelper";
-import StorageHelper from "./../helper/storageHelper";
-import GithubProjectComponent from "./../githubProject/index.vue";
+import bus from "./../../helper/bus.js";
+import FetchHelper from "./../../helper/fetch.helper";
+import StorageHelper from "./../../helper/storage.helper";
+import GhpProjectItem from "./../ghp-project-item/ghp-project-item.component.vue";
 
 export default {
-  name: "githubOutput",
+  name: "ghpContent",
   components: {
-    "github-project": GithubProjectComponent
+    "ghp-project-item": GhpProjectItem
   },
   data () {
     return {

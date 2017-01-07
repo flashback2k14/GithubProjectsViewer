@@ -1,17 +1,17 @@
 <template>
   <div class="container container-row">
     <!-- header -->
-    <github-header></github-header>
+    <ghp-header></ghp-header>
     <!-- content -->
-    <github-login v-bind:style="{ display: loginVisible }"></github-login>
+    <ghp-login v-bind:style="{ display: loginVisible }"></ghp-login>
     <div v-bind:style="{ display: contenVisbile }">
-      <github-input class="input-container"></github-input>
-      <github-output class="output-container"></github-output>
+      <ghp-search class="search-container"></ghp-search>
+      <ghp-content class="content-container"></ghp-content>
     </div>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./ghp-app.component.js"></script>
 
 <style scoped>
   .container {
@@ -21,7 +21,7 @@
     flex-direction: column;
   }
   
-  .input-container {
+  .search-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,7 @@
     margin-top: 24px;
   }
 
-  .output-container {
+  .content-container {
     display: flex;
     justify-content: center;
     margin-top: 12px;

@@ -8,6 +8,6 @@
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./ghp-project-item.component.js"></script>
 
 <style scoped></style>

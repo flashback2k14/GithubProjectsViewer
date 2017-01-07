@@ -1,8 +1,8 @@
-import bus from "./../helper/bus";
-import StorageHelper from "./../helper/storageHelper";
+import bus from "./../../helper/bus";
+import StorageHelper from "./../../helper/storage.helper";
 
 export default {
-  name: "githubLogin",
+  name: "ghpLogin",
   data () {
     return {
       login: {

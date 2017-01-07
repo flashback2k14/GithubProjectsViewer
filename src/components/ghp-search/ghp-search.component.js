@@ -1,7 +1,7 @@
-import bus from "./../helper/bus.js";
+import bus from "./../../helper/bus.js";
 
 export default {
-  name: "githubInput",
+  name: "ghpSearch",
   data () {
     return {
       search: {

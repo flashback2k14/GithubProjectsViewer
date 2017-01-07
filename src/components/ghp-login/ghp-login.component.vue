@@ -2,21 +2,25 @@
   <div class="login-form_container">
     <div class="login-form">
       <form @submit.prevent="onSubmit">
-        <input type="text" class="input-style" v-model="login.username" placeholder="Enter your Github Username...">
-        <input type="password" class="input-style" v-model="login.password" placeholder="Enter your Github Password...">
+        <input type="text" class="input-style" 
+                v-model="login.username" 
+                placeholder="Enter your Github Username...">
+        <input type="password" class="input-style" 
+                v-model="login.password" 
+                placeholder="Enter your Github Password...">
         <button type="submit" class="button-style">Login</button>
       </form>
     </div>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./ghp-login.component.js"></script>
 
 <style scoped>
   .login-form_container {
     display: flex;
     justify-content: space-around;
-    height: 160px;
+    height: 175px;
     margin-top: 175px;
   }
   .login-form {
@@ -25,6 +29,7 @@
     justify-content: center;
     width: 25%;
     text-align: center;
+    border: 1px solid  rgba(0,0,0,0.1);
     border-radius: 4px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
@@ -35,7 +40,8 @@
 
   .input-style {
     width: 300px;
-    margin-bottom: 24px;
+    margin-top: 12px;
+    margin-bottom: 12px;
     border: 0;
     border-bottom: 1px solid #283593;
     font-size: medium;
@@ -46,6 +52,7 @@
 
   .button-style {
     width: 150px;
+    margin-top: 12px;
     padding: 3px;
     background: #FF1744;
     color: white;

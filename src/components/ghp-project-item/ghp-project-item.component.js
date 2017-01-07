@@ -1,5 +1,5 @@
 export default {
-  name: "githubProject",
+  name: "ghpProjectItem",
   props: ["project"],
   data () {
     return {}

@@ -1,17 +1,17 @@
-import bus from "./../helper/bus";
-import StorageHelper from "./../helper/storageHelper";
-import GithubHeaderComponent from "./../githubHeader/index.vue";
-import GithubLoginComponent from "./../githubLogin/index.vue";
-import GithubInputComponent from "./../githubInput/index.vue";
-import GithubOutputComponent from "./../githubOutput/index.vue";
+import bus from "./../../helper/bus";
+import StorageHelper from "./../../helper/storage.helper";
+import GhpHeader from "./../ghp-header/ghp-header.component.vue";
+import GhpLogin from "./../ghp-login/ghp-login.component.vue";
+import GhpSearch from "./../ghp-search/ghp-search.component.vue";
+import GhpContent from "./../ghp-content/ghp-content.component.vue";
 
 export default {
-  name: "githubApp",
+  name: "ghpApp",
   components: {
-    "github-header": GithubHeaderComponent,
-    "github-login": GithubLoginComponent,
-    "github-input": GithubInputComponent,
-    "github-output": GithubOutputComponent
+    "ghp-header": GhpHeader,
+    "ghp-login": GhpLogin,
+    "ghp-search": GhpSearch,
+    "ghp-content": GhpContent
   },
   data () {
     return {
@@ -32,11 +32,9 @@ export default {
       let password = StorageHelper.get(StorageHelper.Keys.PW);
 
       if (username && password) {
-        this.loginVisible = "none";
-        this.contenVisbile = "block";
+        this.changeViewState(true);
       } else {
-        this.loginVisible = "flex";
-        this.contenVisbile = "none";
+        this.changeViewState(false);
       }
     },
     changeViewState (shouldChange) {

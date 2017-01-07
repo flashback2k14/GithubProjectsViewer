@@ -1,4 +1,4 @@
-import StorageHelper from "./storageHelper";
+import StorageHelper from "./storage.helper";
 
 class FetchHelper {
 

@@ -1,11 +1,11 @@
-import bus from "./../helper/bus";
-import StorageHelper from "./../helper/storageHelper";
+import bus from "./../../helper/bus";
+import StorageHelper from "./../../helper/storage.helper";
 
 export default {
-  name: "githubHeader",
+  name: "ghpHeader",
   data () {
     return {
-      title: "Github Projects built with Vue.js"
+      title: "Github Projects Viewer"
     }
   },
   methods: {

@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./ghp-header.component.js"></script>
 
 <style scoped>
   .title-container {

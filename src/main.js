@@ -1,10 +1,10 @@
 import Vue from "vue";
-import GithubAppComponent from "./components/githubApp/index.vue";
+import GhpApp from "./components/ghp-app/ghp-app.component.vue";
 
 const vm = new Vue({
   el: "#app",
   components: {
-    app: GithubAppComponent
+    app: GhpApp
   },
   render: h => h("app")
 });

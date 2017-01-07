@@ -5,13 +5,13 @@
     </div>
     <div v-if="currentSearchInput != null">
       <div v-for="project in githubProjects[githubProjectsKey]">
-        <github-project :project="project"></github-project>
+        <ghp-project-item :project="project"></ghp-project-item>
       </div>
     </div>
   </div>
 </template>
 
-<script src="./script.js"></script>
+<script src="./ghp-content.component.js"></script>
 
 <style scoped>
   .text-size {
