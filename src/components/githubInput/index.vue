@@ -1,0 +1,41 @@
+<template>
+  <div>
+    <form @submit.prevent="onSubmit">
+      <input type="text" class="input-style" v-model="search.username" placeholder="Enter a Github Username...">
+      <input type="text" class="input-style" v-model="search.repo" placeholder="Enter a Github Repo...">
+      <button type="submit" class="button-style">Search</button>
+    </form>
+  </div>
+</template>
+
+<script src="./script.js"></script>
+
+<style scoped>
+  .input-style {
+    width: 300px;
+    margin-right: 20px;
+    border: 0;
+    border-bottom: 1px solid #283593;
+    font-size: medium;
+  }
+  .input-style:hover {
+    border-bottom: 1px solid #FF1744;
+  }
+
+  .button-style {
+    width: 150px;
+    padding: 3px;
+    background: #FF1744;
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    font-size: medium;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+  }
+  .button-style:hover {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+</style>
