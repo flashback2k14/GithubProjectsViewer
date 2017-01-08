@@ -39,9 +39,8 @@
   }
 
   .input-style {
-    width: 300px;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    width: 90%;
+    margin: 12px;
     border: 0;
     border-bottom: 1px solid #283593;
     font-size: medium;

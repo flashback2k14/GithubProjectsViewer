@@ -32,6 +32,6 @@
   .content-container {
     display: flex;
     justify-content: center;
-    margin-top: 12px;
+    margin-top: 24px;
   }
 </style>
