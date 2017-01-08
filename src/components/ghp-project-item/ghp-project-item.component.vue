@@ -2,7 +2,7 @@
   <div class="project-container" v-if="project">
     <div>
       <div class="title-style" @click="showProjectDetails">
-        {{ project.number }} - {{ project.name }}
+        {{ project.name }}
       </div>
       <div class="spacer"></div>
       <div class="body-style" v-html="mdBody"></div>
@@ -31,6 +31,7 @@
   .title-style {
     padding: 6px;
     font-size: larger;
+    font-weight: bolder;
     cursor: pointer;
   }
 

@@ -1,11 +1,11 @@
-import showdown from "showdown";
+import ShowdownHelper from "./../../helper/showdown.helper";
 
 export default {
   name: "ghpProjectItem",
   props: ["project"],
   computed: {
     mdBody: function () {
-      return new showdown.Converter().makeHtml(this.project.body);
+      return ShowdownHelper.convertMdToHtml(this.project.body);
     }
   },
   data () {
