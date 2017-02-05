@@ -11,8 +11,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "clean": "rm -r build/",
-    "clean:a": "rm -r build/ node_modules"
+    "clean": "rm -r build/ prod/",
+    "clean:a": "rm -r build/ node_modules",
+    "prod": "npm run build && mkdir prod && cp -rv build prod/build && cp index.html prod && cp style.css prod",
+    "deploy": "npm run clean && npm run build && cd prod && surge --domain github-project-viewer.surge.sh"
   },
   "dependencies": {
     "vue": "~2.1.8"
@@ -26,6 +28,7 @@
     "file-loader": "~0.9.0",
     "moment": "~2.17.1",
     "showdown": "~1.5.5",
+    "surge": "~0.18.0",
     "vue-loader": "~10.0.2",
     "vue-template-compiler": "~2.1.8",
     "webpack": "~2.1.0-beta.28",

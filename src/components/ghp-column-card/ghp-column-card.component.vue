@@ -8,9 +8,9 @@
     <div class="item-container_spacer"></div>
     <div class="date-container">
       <div class="date-spacing">
-        created: {{ card.created_at | formatDate }}
+        last modifyed: {{ card.updated_at | formatDate }}
       </div>
-      <div>last modifyed: {{ card.updated_at | formatDate }}</div>
+      <div>created: {{ card.created_at | formatDate }}</div>
     </div>
   </div>
 </template>

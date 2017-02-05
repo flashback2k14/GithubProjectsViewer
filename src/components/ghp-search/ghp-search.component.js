@@ -5,8 +5,8 @@ export default {
   data () {
     return {
       search: {
-        username: "socobo",
-        repo: "SocoboPlusPlus"
+        username: "",
+        repo: ""
       }
     }
   },
