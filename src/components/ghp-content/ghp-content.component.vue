@@ -17,6 +17,9 @@
         :project="project">
       </ghp-project-item>
     </div>
+    <div class="non-available-container" v-if="projectsKey === ''">
+      <div class="non-available-text">No Projects avaiable!</div>
+    </div>
     <!-- projects columns row -->
     <div class="separator-title">Columns</div>
     <div class="separator-spacer"></div>
@@ -27,6 +30,9 @@
         :column="column">
       </ghp-project-column>
     </div>
+    <div class="non-available-container" v-if="projectColumnsKey === ''">
+      <div class="non-available-text">No Columns avaiable!</div>
+    </div>
     <!-- projects columns cards row -->
     <div class="separator-title">Cards</div>
     <div class="separator-spacer"></div>
@@ -36,6 +42,9 @@
         v-for="card in projectColumnCards[projectColumnCardsKey]"
         :card="card">
       </ghp-column-card>
+    </div>
+    <div class="non-available-container" v-if="projectColumnCardsKey === ''">
+      <div class="non-available-text">No Cards avaiable!</div>
     </div>
   </div>
 </template>
@@ -50,13 +59,19 @@
     flex: 1 1 auto;
   }
 
-  .error-container {
+  .error-container,
+  .non-available-container {
     display: flex;
     justify-content: center;
   }
   .error-text {
     font-size: large;
     color: red;
+  }
+
+  .non-available-text {
+    font-size: large;
+    color: #424242;
   }
 
   .projects-container,
