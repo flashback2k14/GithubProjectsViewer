@@ -1,12 +1,10 @@
 <template>
-  <div class="project-container" v-if="project">
-    <div>
-      <div class="title-style" @click="showProjectColumns">
-        {{ project.name }}
-      </div>
-      <div class="spacer"></div>
-      <div class="body-style" v-html="mdBody"></div>
+  <div v-if="project" class="project-container">
+    <div class="title-style" @click="showProjectColumns">
+      {{ project.name }}
     </div>
+    <div class="spacer"></div>
+    <div class="body-style" v-html="mdBody"></div>
   </div>
 </template>
 
@@ -17,6 +15,7 @@
     width: 300px;
     height: 100%;
     margin-right: 24px;
+    margin-bottom: 24px;
     padding: 6px 12px 6px 12px;
     overflow-x: auto;
     border: 1px solid  rgba(0,0,0,0.1);

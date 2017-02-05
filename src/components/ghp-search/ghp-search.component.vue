@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <section>
     <form @submit.prevent="onSubmit">
       <input type="text" class="input-style" 
               v-model="search.username" 
@@ -9,7 +9,7 @@
               placeholder="Enter a Github Repo...">
       <button type="submit" class="button-style">Search</button>
     </form>
-  </div>
+  </section>
 </template>
 
 <script src="./ghp-search.component.js"></script>

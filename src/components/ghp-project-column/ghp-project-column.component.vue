@@ -1,6 +1,6 @@
 <template>
-  <div v-if="column">
-    <div @click="test" class="column-container">
+  <div v-if="column" class="column-container">
+    <div @click="test">
       <div>{{ column.id }}</div>
       <div>{{ column.name }}</div>
       <div>{{ column.created_at }}</div>

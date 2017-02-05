@@ -40,7 +40,7 @@ export default {
     changeViewState (shouldChange) {
       if (shouldChange) {
         this.loginVisible = "none";
-        this.contenVisbile = "block";
+        this.contenVisbile = "flex"; //block
       } else {
         this.loginVisible = "flex";
         this.contenVisbile = "none";

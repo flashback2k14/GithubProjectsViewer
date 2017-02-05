@@ -10,16 +10,21 @@
   <div>
     <!-- header -->
     <ghp-header></ghp-header>
-    <!-- content -->
+    <!-- main -->
     <main>
-      <!-- modal -->
-      <div class="login-section" v-bind:style="{ display: loginVisible }">
+      <!-- login -->
+      <section class="login-section" v-bind:style="{ display: loginVisible }">
         <ghp-login></ghp-login>
-      </div>
-      <section v-bind:style="{ display: contenVisbile }">
-        <div>
-          <ghp-search class="search-container"></ghp-search>
-          <ghp-content class="content-container"></ghp-content>
+      </section>
+      <!-- content -->
+      <section class="content-section" v-bind:style="{ display: contenVisbile }">
+        <!-- search -->
+        <div class="search-container">
+          <ghp-search></ghp-search>
+        </div>
+        <!-- projects -->
+        <div class="content-container">
+          <ghp-content></ghp-content>
         </div>
       </section>
     </main>
@@ -37,7 +42,13 @@
     align-items: center;
     justify-content: center;
   }
-  /*.search-container {
+
+  .content-section {
+    flex: 1 1 auto;
+    flex-direction: column;
+  }
+
+  .search-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,9 +58,8 @@
 
   .content-container {
     display: flex;
+    flex: 1 0 auto;
     flex-direction: column;
-    justify-content: center;
-    height: 100%;
     margin-top: 24px;
-  }*/
+  }
 </style>
