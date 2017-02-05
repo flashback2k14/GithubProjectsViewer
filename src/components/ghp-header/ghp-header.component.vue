@@ -10,15 +10,6 @@
 <script src="./ghp-header.component.js"></script>
 
 <style scoped>
-  header {
-    display: flex;
-    flex: 0 0 48px;
-    align-items: center;
-    padding: 0 12px 0 12px;
-    background: #283593;
-    color: white;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-  }
   .header-title {
     flex: 1 0 auto;
     font-size: large;

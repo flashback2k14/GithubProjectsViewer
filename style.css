@@ -12,3 +12,27 @@ body {
   font-family: 'Lato', sans-serif;
   font-size: 0.9em;
 }
+
+header {
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  padding: 12px;
+  background: #283593;
+  color: white;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+main {
+  display: flex;
+  flex: 1 0 auto;
+  height: calc(100vh - 90px);
+}
+
+footer {
+  display: flex;
+  flex: 0 0 48px;
+  align-items: center;
+  padding: 12px;
+  background: lavender;
+}

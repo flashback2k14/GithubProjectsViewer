@@ -19,15 +19,15 @@
 <style scoped>
   .login-form_container {
     display: flex;
-    justify-content: space-around;
+    width: 350px;
     height: 175px;
-    margin-top: 175px;
   }
+
   .login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 25%;
+    width: 100%;
     text-align: center;
     border: 1px solid  rgba(0,0,0,0.1);
     border-radius: 4px;

@@ -1,29 +1,43 @@
 <template>
-  <div class="container container-row">
-    <!-- header -->
+  <!--<div class="container container-row">
     <ghp-header></ghp-header>
-    <!-- content -->
     <ghp-login v-bind:style="{ display: loginVisible }"></ghp-login>
     <div v-bind:style="{ display: contenVisbile }">
       <ghp-search class="search-container"></ghp-search>
       <ghp-content class="content-container"></ghp-content>
     </div>
+  </div>-->
+  <div>
+    <!-- header -->
+    <ghp-header></ghp-header>
+    <!-- content -->
+    <main>
+      <!-- modal -->
+      <div class="login-section" v-bind:style="{ display: loginVisible }">
+        <ghp-login></ghp-login>
+      </div>
+      <section v-bind:style="{ display: contenVisbile }">
+        <div>
+          <ghp-search class="search-container"></ghp-search>
+          <ghp-content class="content-container"></ghp-content>
+        </div>
+      </section>
+    </main>
     <!-- footer -->
-    
+    <footer>Github</footer>
   </div>
+  
 </template>
 
 <script src="./ghp-app.component.js"></script>
 
 <style scoped>
-  .container {
-    display: flex;
+  .login-section {
+    flex: 1 1 350px;
+    align-items: center;
+    justify-content: center;
   }
-  .container-row {
-    flex-direction: column;
-  }
-  
-  .search-container {
+  /*.search-container {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -37,5 +51,5 @@
     justify-content: center;
     height: 100%;
     margin-top: 24px;
-  }
+  }*/
 </style>
