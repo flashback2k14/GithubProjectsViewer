@@ -16,6 +16,14 @@ class FetchHelper {
     return ghHeaders;
   }
 
+  _getIssueHeader () {
+    const auth = btoa(`${this._authUser}:${atob(this._authPw)}`);
+    const ghHeaders = new Headers();
+    ghHeaders.append("Authorization", `Basic ${auth}`);
+    ghHeaders.append("User-Agent", "flashback2k14::Vue2::GithubProjectsViewer");
+    return ghHeaders;
+  }
+
   _getAllProjectsUrl (username, repo) {
     return `https://api.github.com/repos/${username}/${repo}/projects`;
   }
@@ -57,6 +65,18 @@ class FetchHelper {
       fetch(this._getAllCardsFromColumn(id), {
         method: "GET",
         headers: this._getHeader()
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
+
+  getIssueData (url) {
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: "GET",
+        headers: this._getIssueHeader()
       })
       .then(r => r.json())
       .then(data => resolve(data))

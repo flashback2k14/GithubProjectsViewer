@@ -24,7 +24,7 @@
     <footer>
       <a href="https://github.com/flashback2k14/GithubProjectsViewer" 
         target="_blank" class="anchor-style">
-        View Source Code on Github
+        View Source Code on Github created by flashback2k14
       </a>
     </footer>
   </div>
