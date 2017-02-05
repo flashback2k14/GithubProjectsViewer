@@ -1,12 +1,4 @@
 <template>
-  <!--<div class="container container-row">
-    <ghp-header></ghp-header>
-    <ghp-login v-bind:style="{ display: loginVisible }"></ghp-login>
-    <div v-bind:style="{ display: contenVisbile }">
-      <ghp-search class="search-container"></ghp-search>
-      <ghp-content class="content-container"></ghp-content>
-    </div>
-  </div>-->
   <div>
     <!-- header -->
     <ghp-header></ghp-header>
@@ -29,7 +21,12 @@
       </section>
     </main>
     <!-- footer -->
-    <footer>Github</footer>
+    <footer>
+      <a href="https://github.com/flashback2k14/GithubProjectsViewer" 
+        target="_blank" class="anchor-style">
+        View Source Code on Github
+      </a>
+    </footer>
   </div>
   
 </template>
@@ -61,5 +58,15 @@
     flex: 1 0 auto;
     flex-direction: column;
     margin-top: 24px;
+  }
+
+  .anchor-style {
+    text-decoration: none;
+  }
+  .anchor-style:hover {
+    text-decoration: underline;
+  }
+  .anchor-style:visited {
+    color: #424242;
   }
 </style>

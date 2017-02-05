@@ -1,15 +1,13 @@
 <template>
-  <section>
-    <form @submit.prevent="onSubmit">
-      <input type="text" class="input-style" 
-              v-model="search.username" 
-              placeholder="Enter a Github Username...">
-      <input type="text" class="input-style" 
-              v-model="search.repo" 
-              placeholder="Enter a Github Repo...">
-      <button type="submit" class="button-style">Search</button>
-    </form>
-  </section>
+  <form @submit.prevent="onSubmit">
+    <input type="text" class="input-style" 
+            v-model="search.username" 
+            placeholder="Enter a Github Username...">
+    <input type="text" class="input-style" 
+            v-model="search.repo" 
+            placeholder="Enter a Github Repo...">
+    <button type="submit" class="button-style">Search</button>
+  </form>
 </template>
 
 <script src="./ghp-search.component.js"></script>
