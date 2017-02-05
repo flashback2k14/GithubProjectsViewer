@@ -38,6 +38,7 @@
     flex: 1 1 350px;
     align-items: center;
     justify-content: center;
+    height: calc(100vh - 90px);
   }
 
   .content-section {
