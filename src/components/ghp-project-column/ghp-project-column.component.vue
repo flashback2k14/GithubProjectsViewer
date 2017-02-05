@@ -1,10 +1,12 @@
 <template>
-  <div v-if="column" class="column-container">
-    <div @click="test">
-      <div>{{ column.id }}</div>
-      <div>{{ column.name }}</div>
-      <div>{{ column.created_at }}</div>
-      <div>{{ column.updated_at }}</div>
+  <div v-if="column" class="item-container">
+    <div class="item-container_title" @click="showColumnCards">
+      {{ column.name }}
+    </div>
+    <div class="item-container_spacer"></div>
+    <div class="body-style">
+      <div>created: {{ column.created_at | formatDate }}</div>
+      <div>last modifyed: {{ column.updated_at | formatDate }}</div>
     </div>
   </div>
 </template>
@@ -12,8 +14,7 @@
 <script src="./ghp-project-column.component.js"></script>
 
 <style scoped>
-  .column-container {
-    background: red;
-    margin-right: 12px;
+  .body-style {
+    padding: 6px;
   }
 </style>

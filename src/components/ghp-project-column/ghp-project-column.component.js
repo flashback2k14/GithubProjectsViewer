@@ -1,12 +1,21 @@
+import MomentHelper from "./../../helper/moment.helper";
+import bus from "./../../helper/bus";
+
 export default {
   name: "ghpProjectColumn",
   props: ["column"],
   data () {
     return {}
   },
+  filters: {
+    formatDate: function (value) {
+      if (!value) return "";
+      return MomentHelper.convert(value);
+    }
+  },
   methods: {
-    test () {
-      alert(this.column.id);
+    showColumnCards () {
+      bus.$emit("show-column-cards", this.column.id);
     }
   }
 }

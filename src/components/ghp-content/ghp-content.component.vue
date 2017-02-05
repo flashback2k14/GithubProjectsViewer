@@ -2,12 +2,15 @@
   <div class="content-section">
     <!-- error message -->
     <div class="error-container">
-      <div class="text-size text-error" 
+      <div class="error-text"
           v-if="currentSearchInput == null">
         {{ errorMessage }}
       </div>
     </div>
     <!-- projects row -->
+    <div class="separator-title">Projects</div>
+    <div class="separator-spacer"></div>
+    <!-- row content -->
     <div class="projects-container" v-if="currentSearchInput != null">
       <ghp-project-item 
         v-for="project in projects[projectsKey]" 
@@ -15,11 +18,24 @@
       </ghp-project-item>
     </div>
     <!-- projects columns row -->
+    <div class="separator-title">Columns</div>
+    <div class="separator-spacer"></div>
+    <!-- row content -->
     <div class="columns-container" v-if="currentSearchInput != null">
       <ghp-project-column 
         v-for="column in projectColumns[projectColumnsKey]"
         :column="column">
       </ghp-project-column>
+    </div>
+    <!-- projects columns cards row -->
+    <div class="separator-title">Cards</div>
+    <div class="separator-spacer"></div>
+    <!-- row content -->
+    <div class="cards-container" v-if="currentSearchInput !== null">
+      <ghp-column-card
+        v-for="card in projectColumnCards[projectColumnCardsKey]"
+        :card="card">
+      </ghp-column-card>
     </div>
   </div>
 </template>
@@ -30,6 +46,7 @@
   .content-section {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     flex: 1 1 auto;
   }
 
@@ -37,17 +54,17 @@
     display: flex;
     justify-content: center;
   }
-  .text-size {
+  .error-text {
     font-size: large;
-  }
-  .text-error {
     color: red;
   }
 
   .projects-container,
-  .columns-container {
+  .columns-container,
+  .cards-container {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
   }
 </style>

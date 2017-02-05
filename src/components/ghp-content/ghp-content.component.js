@@ -3,12 +3,14 @@ import FetchHelper from "./../../helper/fetch.helper";
 import StorageHelper from "./../../helper/storage.helper";
 import GhpProjectItem from "./../ghp-project-item/ghp-project-item.component.vue";
 import GhpProjectColumn from "./../ghp-project-column/ghp-project-column.component.vue";
+import GhpColumnCard from "./../ghp-column-card/ghp-column-card.component.vue";
 
 export default {
   name: "ghpContent",
   components: {
     "ghp-project-item": GhpProjectItem,
-    "ghp-project-column": GhpProjectColumn
+    "ghp-project-column": GhpProjectColumn,
+    "ghp-column-card": GhpColumnCard
   },
   data () {
     return {
@@ -17,16 +19,20 @@ export default {
       projects: {},
       projectsKey: "",
       projectColumns: {},
-      projectColumnsKey: ""
+      projectColumnsKey: "",
+      projectColumnCards: {},
+      projectColumnCardsKey: ""
     }
   },
   created () {
     bus.$on("search-changed", this.onSearchChanged);
     bus.$on("show-project-columns", this.onShowProjectColumns);
+    bus.$on("show-column-cards", this.onShowColumnCards);
   },
   destroyed () {
     bus.$off("search-changed", this.onSearchChanged);
     bus.$off("show-project-columns", this.onShowProjectColumns);
+    bus.$off("show-column-cards", this.onShowColumnCards);
   },
   methods: {
     onSearchChanged (searchInput) {
@@ -41,12 +47,20 @@ export default {
         this.projectsKey = "";
         this.projectColumns = {};
         this.projectColumnsKey = "";
+        this.projectColumnCards = {};
+        this.projectColumnCardsKey = "";
       }
     },
     onShowProjectColumns (projectId) {
       if (projectId) {
         this.projectColumnsKey = projectId;
         this._fetchColumnsData(projectId);
+      }
+    },
+    onShowColumnCards (columnId) {
+      if (columnId) {
+        this.projectColumnCardsKey = columnId;
+        this._fetchCardsData(columnId);
       }
     },
     _fetchProjectsData (search) {
@@ -62,11 +76,21 @@ export default {
     _fetchColumnsData (id) {
       if (this.projectColumns.hasOwnProperty(this.projectColumnsKey)) return;
 
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER), 
+      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
                                   StorageHelper.get(StorageHelper.Keys.PW));
 
       fh.getColumnsDataById(id)
         .then(result => this.$set(this.projectColumns, this.projectColumnsKey, result))
+        .catch(error => this.errorMessage = error.message);
+    },
+    _fetchCardsData (id) {
+      if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
+
+      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                  StorageHelper.get(StorageHelper.Keys.PW));
+
+      fh.getCardsDataById(id)
+        .then(result => this.$set(this.projectColumnCards, this.projectColumnCardsKey, result))
         .catch(error => this.errorMessage = error.message);
     }
   }
