@@ -2,11 +2,16 @@
   <div>
     <div class="text-size text-error" 
           v-if="currentSearchInput == null">
-      Error username and/or repo is empty!
+      {{ errorMessage }}
     </div>
     <div class="projects-container" v-if="currentSearchInput != null">
-      <div v-for="project in githubProjects[githubProjectsKey]">
+      <div v-for="project in projects[projectsKey]">
         <ghp-project-item :project="project"></ghp-project-item>
+      </div>
+    </div>
+    <div class="columns-container" v-if="currentSearchInput != null">
+      <div v-for="column in projectColumns[projectColumnsKey]">
+        <ghp-project-column :column="column"></ghp-project-column>
       </div>
     </div>
   </div>
@@ -22,7 +27,8 @@
     color: red;
   }
 
-  .projects-container {
+  .projects-container,
+  .columns-container {
     display: flex;
     flex-direction: row;
     justify-content: center;

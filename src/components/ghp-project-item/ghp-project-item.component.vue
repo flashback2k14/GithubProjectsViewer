@@ -1,7 +1,7 @@
 <template>
   <div class="project-container" v-if="project">
     <div>
-      <div class="title-style" @click="showProjectDetails">
+      <div class="title-style" @click="showProjectColumns">
         {{ project.name }}
       </div>
       <div class="spacer"></div>

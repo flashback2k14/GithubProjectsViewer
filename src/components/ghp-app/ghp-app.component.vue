@@ -31,7 +31,9 @@
 
   .content-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    height: 100%;
     margin-top: 24px;
   }
 </style>

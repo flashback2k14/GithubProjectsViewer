@@ -19,6 +19,34 @@ class FetchHelper {
   getAllProjectsUrl (username, repo) {
     return `https://api.github.com/repos/${username}/${repo}/projects`;
   }
+
+  getAllColumnsFromProject (projectId) {
+    return `https://api.github.com/projects/${projectId}/columns`;
+  }
+
+  getProjectsData (username, repo) {
+    return new Promise((resolve, reject) => {
+      fetch(this.getAllProjectsUrl(username, repo), {
+        method: "GET",
+        headers: this.getHeader()
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error.message));
+    });
+  }
+
+  getColumnsDataById (id) {
+    return new Promise((resolve, reject) => {
+      fetch(this.getAllColumnsFromProject(id), {
+        method: "GET",
+        headers: this.getHeader()
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
 }
 
 export default FetchHelper;
