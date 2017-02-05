@@ -8,6 +8,8 @@
       <ghp-search class="search-container"></ghp-search>
       <ghp-content class="content-container"></ghp-content>
     </div>
+    <!-- footer -->
+    
   </div>
 </template>
 

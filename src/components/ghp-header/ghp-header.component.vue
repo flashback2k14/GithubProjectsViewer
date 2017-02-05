@@ -1,36 +1,32 @@
 <template>
-  <div class="title-container">
-    <div class="title">{{ title }}</div>
-    <div class="logout">
-      <button class="button-logout" @click="logout">Logout</button>
+  <header>
+    <div class="header-title">{{ title }}</div>
+    <div class="header-logout">
+      <button class="btn-logout" @click="logout">Logout</button>
     </div>
-  </div>
+  </header>
 </template>
 
 <script src="./ghp-header.component.js"></script>
 
 <style scoped>
-  .title-container {
+  header {
     display: flex;
+    flex: 0 0 48px;
     align-items: center;
-    justify-content: space-between;
-    height: 48px;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding: 0 12px 0 12px;
     background: #283593;
     color: white;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   }
-  .title {
-    display: flex;
-    justify-content: flex-start;
+  .header-title {
+    flex: 1 0 auto;
     font-size: large;
   }
-  .logout {
-    display: flex;
-    justify-content: flex-end;
+  .header-logout {
+    flex: 0 0 50px;
   }
-  .button-logout {
+  .btn-logout {
     width: 80px;
     background: #283593;
     color: white;
@@ -39,7 +35,8 @@
     text-transform: uppercase;
     font-size: small;
   }
-  .button-logout:hover {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  .btn-logout:hover {
+    border: 1px solid #1A237E;
+    border-radius: 4px;
   }
 </style>
