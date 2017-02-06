@@ -14,7 +14,7 @@
     "clean": "rm -r build/ prod/",
     "clean:a": "rm -r build/ node_modules",
     "prod": "npm run build && mkdir prod && cp -rv build prod/build && cp index.html prod && cp style.css prod",
-    "deploy": "npm run clean && npm run build && cd prod && surge --domain github-project-viewer.surge.sh"
+    "deploy": "npm run clean && npm run prod && cd prod && surge --domain github-project-viewer.surge.sh"
   },
   "dependencies": {
     "vue": "~2.1.8"
