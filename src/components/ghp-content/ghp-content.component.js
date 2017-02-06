@@ -21,7 +21,10 @@ export default {
       projectColumns: {},
       projectColumnsKey: "",
       projectColumnCards: {},
-      projectColumnCardsKey: ""
+      projectColumnCardsKey: "",
+      projectsNonAvailable: true,
+      columnsNonAvailable: true,
+      cardsNonAvailable: true,
     }
   },
   created () {
@@ -43,12 +46,7 @@ export default {
       } else {
         this.currentSearchInput = null;
         this.errorMessage = "Error username and/or repo is empty!";
-        this.projects = {};
-        this.projectsKey = "";
-        this.projectColumns = {};
-        this.projectColumnsKey = "";
-        this.projectColumnCards = {};
-        this.projectColumnCardsKey = "";
+        this._clearData();
       }
     },
     onShowProjectColumns (projectId) {
@@ -71,7 +69,14 @@ export default {
                                   StorageHelper.get(StorageHelper.Keys.PW));
 
       fh.getProjectsData(search.username, search.repo)
-        .then(result => this.$set(this.projects, this.projectsKey, result))
+        .then(result => {
+          if (result.length > 0) {
+            this.$set(this.projects, this.projectsKey, result);
+            this.projectsNonAvailable = false;
+          } else {
+            this._clearData();
+          }
+        })
         .catch(error => this.errorMessage = error.message);
     },
     _fetchColumnsData (id) {
@@ -81,7 +86,14 @@ export default {
                                   StorageHelper.get(StorageHelper.Keys.PW));
 
       fh.getColumnsDataById(id)
-        .then(result => this.$set(this.projectColumns, this.projectColumnsKey, result))
+        .then(result => {
+          if (result.length > 0) {
+            this.$set(this.projectColumns, this.projectColumnsKey, result);
+            this.columnsNonAvailable = false;
+          } else {
+            this.columnsNonAvailable = true;
+          }
+        })
         .catch(error => this.errorMessage = error.message);
     },
     _fetchCardsData (id) {
@@ -97,8 +109,26 @@ export default {
                                   StorageHelper.get(StorageHelper.Keys.PW));
 
       fh.getCardsDataById(id)
-        .then(result => this.$set(this.projectColumnCards, this.projectColumnCardsKey, result))
+        .then(result => {
+          if (result.length > 0) {
+            this.$set(this.projectColumnCards, this.projectColumnCardsKey, result);
+            this.cardsNonAvailable = false;
+          } else {
+            this.cardsNonAvailable = true;
+          }
+        })
         .catch(error => this.errorMessage = error.message);
+    },
+    _clearData () {
+      this.projectsNonAvailable = true;
+      this.columnsNonAvailable = true;
+      this.cardsNonAvailable = true;
+      this.projects = {};
+      this.projectsKey = "";
+      this.projectColumns = {};
+      this.projectColumnsKey = "";
+      this.projectColumnCards = {};
+      this.projectColumnCardsKey = "";
     }
   }
 }

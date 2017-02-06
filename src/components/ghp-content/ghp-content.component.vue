@@ -17,7 +17,7 @@
         :project="project">
       </ghp-project-item>
     </div>
-    <div class="non-available-container" v-if="projectsKey === ''">
+    <div class="non-available-container" v-if="projectsNonAvailable">
       <div class="non-available-text">No Projects avaiable!</div>
     </div>
     <!-- projects columns row -->
@@ -30,7 +30,7 @@
         :column="column">
       </ghp-project-column>
     </div>
-    <div class="non-available-container" v-if="projectColumnsKey === ''">
+    <div class="non-available-container" v-if="columnsNonAvailable">
       <div class="non-available-text">No Columns avaiable!</div>
     </div>
     <!-- projects columns cards row -->
@@ -43,7 +43,7 @@
         :card="card">
       </ghp-column-card>
     </div>
-    <div class="non-available-container" v-if="projectColumnCardsKey === ''">
+    <div class="non-available-container" v-if="cardsNonAvailable">
       <div class="non-available-text">No Cards avaiable!</div>
     </div>
   </div>
