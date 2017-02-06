@@ -16,6 +16,7 @@
   .input-style {
     width: 300px;
     margin-right: 20px;
+    margin-bottom: 5px;
     border: 0;
     border-bottom: 1px solid #283593;
     font-size: medium;
@@ -27,6 +28,7 @@
   .button-style {
     width: 150px;
     padding: 3px;
+    margin-top: 5px;
     background: #FF1744;
     color: white;
     border: 0;
