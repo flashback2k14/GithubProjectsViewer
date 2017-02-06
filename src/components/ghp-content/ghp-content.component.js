@@ -55,6 +55,7 @@ export default {
       if (projectId) {
         this.projectColumnsKey = projectId;
         this._fetchColumnsData(projectId);
+        this._fetchCardsData(-1);
       }
     },
     onShowColumnCards (columnId) {
@@ -84,6 +85,12 @@ export default {
         .catch(error => this.errorMessage = error.message);
     },
     _fetchCardsData (id) {
+      if (id === -1) {
+        this.projectColumnCards = {};
+        this.projectColumnCardsKey = "";
+        return;
+      }
+
       if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
 
       const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
