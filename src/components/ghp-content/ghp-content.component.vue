@@ -63,6 +63,7 @@
   .non-available-container {
     display: flex;
     justify-content: center;
+    margin: 6px 0 12px 0;
   }
   .error-text {
     font-size: large;

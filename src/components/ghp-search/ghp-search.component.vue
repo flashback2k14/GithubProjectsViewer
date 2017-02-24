@@ -6,7 +6,15 @@
     <input type="text" class="input-style" 
             v-model="search.repo" 
             placeholder="Enter a Github Repo...">
-    <button type="submit" class="button-style">Search</button>
+    <button type="submit" 
+      class="button-style button-style_search">
+        Search
+    </button>
+    <button type="button" 
+      @click.prevent="onClear" 
+      class="button-style button-style_clear">
+        Clear
+    </button>
   </form>
 </template>
 
@@ -14,7 +22,7 @@
 
 <style scoped>
   .input-style {
-    width: 300px;
+    width: 310px;
     margin-right: 20px;
     margin-bottom: 5px;
     border: 0;
@@ -29,8 +37,6 @@
     width: 150px;
     padding: 3px;
     margin-top: 5px;
-    background: #FF1744;
-    color: white;
     border: 0;
     border-radius: 4px;
     font-size: medium;
@@ -41,5 +47,16 @@
   }
   .button-style:hover {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+
+  .button-style_search {
+    background: #FF1744;
+    color: white;
+  }
+
+  .button-style_clear {
+    margin-left: 12px;
+    background: #283593;
+    color: white;
   }
 </style>

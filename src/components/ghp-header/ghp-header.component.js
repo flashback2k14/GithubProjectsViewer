@@ -12,6 +12,8 @@ export default {
     logout () {
       StorageHelper.remove(StorageHelper.Keys.USER);
       StorageHelper.remove(StorageHelper.Keys.PW);
+      StorageHelper.remove(StorageHelper.Keys.SEARCHUSER);
+      StorageHelper.remove(StorageHelper.Keys.SEARCHREPO);
       bus.$emit("should-viewstate-changed", false);
     }
   }

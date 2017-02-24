@@ -8,7 +8,7 @@ class FetchHelper {
   }
 
   _getHeader () {
-    const auth = btoa(`${this._authUser}:${atob(this._authPw)}`);
+    const auth = btoa(`${atob(this._authUser)}:${atob(this._authPw)}`);
     const ghHeaders = new Headers();
     ghHeaders.append("Accept", "application/vnd.github.inertia-preview+json");
     ghHeaders.append("Authorization", `Basic ${auth}`);
@@ -17,7 +17,7 @@ class FetchHelper {
   }
 
   _getIssueHeader () {
-    const auth = btoa(`${this._authUser}:${atob(this._authPw)}`);
+    const auth = btoa(`${atob(this._authUser)}:${atob(this._authPw)}`);
     const ghHeaders = new Headers();
     ghHeaders.append("Authorization", `Basic ${auth}`);
     ghHeaders.append("User-Agent", "flashback2k14::Vue2::GithubProjectsViewer");

@@ -3,7 +3,9 @@ class StorageHelper {
   static get Keys() {
     return {
       USER: "vue2::github::projects::user",
-      PW: "vue2::github::projects::pw"
+      PW: "vue2::github::projects::pw",
+      SEARCHUSER: "vue2::github::projects::search::user",
+      SEARCHREPO: "vue2::github::projects::search::repo"
     };
   }
 

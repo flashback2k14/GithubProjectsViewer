@@ -24,7 +24,7 @@ export default {
   methods: {
     onSubmit (event) {
       if (this.login.username && this.login.password) {
-        StorageHelper.set(StorageHelper.Keys.USER, this.login.username);
+        StorageHelper.set(StorageHelper.Keys.USER, btoa(this.login.username));
         StorageHelper.set(StorageHelper.Keys.PW, btoa(this.login.password));
         this.login.username = "";
         this.login.password = "";

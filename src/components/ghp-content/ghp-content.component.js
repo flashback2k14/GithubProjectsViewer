@@ -29,11 +29,13 @@ export default {
   },
   created () {
     bus.$on("search-changed", this.onSearchChanged);
+    bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
     bus.$on("show-column-cards", this.onShowColumnCards);
   },
   destroyed () {
     bus.$off("search-changed", this.onSearchChanged);
+    bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
   },
@@ -48,6 +50,10 @@ export default {
         this.errorMessage = "Error username and/or repo is empty!";
         this._clearData();
       }
+    },
+    onClearContent () {
+      this.currentSearchInput = null;
+      this._clearData();
     },
     onShowProjectColumns (projectId) {
       if (projectId) {
