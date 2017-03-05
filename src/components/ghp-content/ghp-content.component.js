@@ -14,6 +14,7 @@ export default {
   },
   data () {
     return {
+      __fetcher: null,
       currentSearchInput: {},
       errorMessage: "",
       projects: {},
@@ -31,6 +32,7 @@ export default {
     }
   },
   created () {
+    this._init();
     bus.$on("search-changed", this.onSearchChanged);
     bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
@@ -71,13 +73,16 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
+    _init () {
+      if (!this.__fetcher) {
+        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                          StorageHelper.get(StorageHelper.Keys.PW));
+      }
+    },
     _fetchProjectsData (search) {
       if (this.projects.hasOwnProperty(this.projectsKey)) return;
       
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER), 
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getProjectsData(search.username, search.repo)
+      this.__fetcher.getProjectsData(search.username, search.repo)
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projects, this.projectsKey, result);
@@ -90,12 +95,7 @@ export default {
         .catch(error => this.errorMessage = error.message);
     },
     _fetchColumnsData (id) {
-      // if (this.projectColumns.hasOwnProperty(this.projectColumnsKey)) return;
-
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getColumnsDataById(id)
+      this.__fetcher.getColumnsDataById(id)
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projectColumns, this.projectColumnsKey, result);
@@ -115,12 +115,7 @@ export default {
         return;
       }
 
-      // if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
-
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getCardsDataById(id)
+      this.__fetcher.getCardsDataById(id)
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projectColumnCards, this.projectColumnCardsKey, result);
