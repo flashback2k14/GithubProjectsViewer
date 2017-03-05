@@ -120,6 +120,8 @@ export default {
         return;
       }
 
+      if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
+
       this.__fetcher.getCardsDataById(id)
         .then(result => {
           if (result.length > 0) {

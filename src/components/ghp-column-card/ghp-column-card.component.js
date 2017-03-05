@@ -10,7 +10,7 @@ export default {
   data () {
     return {
       __fetcher: null,
-      selected: "",
+      selected: 0,
       moveOptions: []
     }
   },
@@ -28,7 +28,6 @@ export default {
   },
   watch: {
     selected (columnId, oldColumnId) {
-      // alert("new: " + val + ", old: " + oldVal);
       if (oldColumnId) {
         this._moveCardToSelectedColumn(columnId);
       }
@@ -56,11 +55,12 @@ export default {
     },
     _setupMoveSelection () {
       this.moveOptions = this.availableColumns;
-      this.selected = this.availableColumns.map(column => {
+      const selectedItems = this.availableColumns.filter(column => {
         if (column.id === this.currentColumnId) {
-          return column.id;
+          return column;
         }
-      })[0];
+      });
+      this.selected = selectedItems[0].id;
     },
     _onFetchGithubIssue () {
       if (!this.card.note && this.card.content_url) {
