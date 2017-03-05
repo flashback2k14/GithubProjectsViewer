@@ -17,10 +17,13 @@ export default {
       currentSearchInput: {},
       errorMessage: "",
       projects: {},
+      projectIds: [],
       projectsKey: "",
       projectColumns: {},
+      projectColumnIds: [],
       projectColumnsKey: "",
       projectColumnCards: {},
+      projectColumnCardIds: [],
       projectColumnCardsKey: "",
       projectsNonAvailable: true,
       columnsNonAvailable: true,
@@ -78,6 +81,7 @@ export default {
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projects, this.projectsKey, result);
+            this.projectIds = result.map(project => { return { id: project.id, name: project.name }});
             this.projectsNonAvailable = false;
           } else {
             this._clearData();
@@ -86,7 +90,7 @@ export default {
         .catch(error => this.errorMessage = error.message);
     },
     _fetchColumnsData (id) {
-      if (this.projectColumns.hasOwnProperty(this.projectColumnsKey)) return;
+      // if (this.projectColumns.hasOwnProperty(this.projectColumnsKey)) return;
 
       const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
                                   StorageHelper.get(StorageHelper.Keys.PW));
@@ -95,6 +99,7 @@ export default {
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projectColumns, this.projectColumnsKey, result);
+            this.projectColumnIds = result.map(column => { return { id: column.id, name: column.name }});
             this.columnsNonAvailable = false;
           } else {
             this.columnsNonAvailable = true;
@@ -106,10 +111,11 @@ export default {
       if (id === -1) {
         this.projectColumnCards = {};
         this.projectColumnCardsKey = "";
+        this.cardsNonAvailable = true;
         return;
       }
 
-      if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
+      // if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
 
       const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
                                   StorageHelper.get(StorageHelper.Keys.PW));
@@ -118,6 +124,7 @@ export default {
         .then(result => {
           if (result.length > 0) {
             this.$set(this.projectColumnCards, this.projectColumnCardsKey, result);
+            this.projectColumnCardIds = result.map(card => card.id);
             this.cardsNonAvailable = false;
           } else {
             this.cardsNonAvailable = true;
@@ -130,10 +137,13 @@ export default {
       this.columnsNonAvailable = true;
       this.cardsNonAvailable = true;
       this.projects = {};
+      this.projectIds = [];
       this.projectsKey = "";
       this.projectColumns = {};
+      this.projectColumnIds = [];
       this.projectColumnsKey = "";
       this.projectColumnCards = {};
+      this.projectColumnCardIds = [];
       this.projectColumnCardsKey = "";
     }
   }

@@ -1,7 +1,7 @@
 {
   "name": "github-projects-viewer",
   "description": "View Github Projects built with Vue.js 2",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "license": "MIT",
   "author": "flashback2k14",
   "repository": {
@@ -12,7 +12,7 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "clean": "rm -r build/ prod/",
-    "clean:a": "rm -r build/ node_modules",
+    "clean:a": "rm -r build/ prod/ node_modules",
     "copy:d": "cp -rv build prod/build && cp -rv assets prod/assets",
     "copy:f": "cp index.html prod && cp style.css prod && cp manifest.json prod",
     "prod": "npm run build && mkdir prod && npm run copy:d && npm run copy:f",

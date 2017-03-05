@@ -40,7 +40,9 @@
     <div class="cards-container" v-if="currentSearchInput !== null">
       <ghp-column-card
         v-for="card in projectColumnCards[projectColumnCardsKey]"
-        :card="card">
+        :card="card"
+        :currentColumnId="projectColumnCardsKey"
+        :availableColumns="projectColumnIds">
       </ghp-column-card>
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
