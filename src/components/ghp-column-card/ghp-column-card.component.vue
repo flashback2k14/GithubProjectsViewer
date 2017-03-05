@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="title-container_button">
-        <select v-model="selected">
+        <select class="select-style" v-model="selected">
           <option v-for="option in moveOptions" v-bind:value="option.id">
             {{ option.name }}
           </option>
@@ -48,16 +48,25 @@
     font-size: larger;
     font-weight: bolder;
   }
-  .button-style {
-    height: 24px;
-    background: white;
-    border: 1px #E8EAF6 solid;
-    border-radius: 2px;
+  .select-style {
+    width: 130px;
+    padding: 4px 0 4px 4px;
+    background: white url("./../../../assets/down.svg") no-repeat 90% 50%;
+    font-size: small;
+    border: 0 solid white;
+    border-bottom: 1px solid #424242;
+    border-radius: 0;
     cursor: pointer;
-    transition: 0.3s;
+    overflow: hidden;
+    box-shadow: none;
+    -webkit-appearance: none;
   }
-  .button-style:hover {
-    border: 1px #BDBDBD solid;
+  .select-style:focus {
+    outline: none;
+    border-bottom: 1px solid #FF1744;
+  }
+  .select-style:hover {
+    border-bottom: 1px solid #FF1744;
   }
   .note-style {
     width: 100%;
