@@ -43,6 +43,7 @@ export default {
     bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
+    this._deinit();
   },
   methods: {
     onSearchChanged (searchInput) {
@@ -78,6 +79,10 @@ export default {
         this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
                                           StorageHelper.get(StorageHelper.Keys.PW));
       }
+    },
+    _deinit() {
+      this.__fetcher = null;
+      this._clearData();
     },
     _fetchProjectsData (search) {
       if (this.projects.hasOwnProperty(this.projectsKey)) return;
