@@ -14,6 +14,7 @@
     <div class="projects-container" v-if="currentSearchInput != null">
       <ghp-project-item 
         v-for="project in projects[projectsKey]" 
+        :key="project.id"
         :project="project">
       </ghp-project-item>
     </div>
@@ -27,6 +28,7 @@
     <div class="columns-container" v-if="currentSearchInput != null">
       <ghp-project-column 
         v-for="column in projectColumns[projectColumnsKey]"
+        :key="column.id"
         :column="column">
       </ghp-project-column>
     </div>
@@ -40,6 +42,7 @@
     <div class="cards-container" v-if="currentSearchInput !== null">
       <ghp-column-card
         v-for="card in projectColumnCards[projectColumnCardsKey]"
+        :key="card.id"
         :card="card"
         :currentColumnId="projectColumnCardsKey"
         :availableColumns="projectColumnIds">

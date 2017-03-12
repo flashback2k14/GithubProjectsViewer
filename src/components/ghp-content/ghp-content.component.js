@@ -12,6 +12,13 @@ export default {
     "ghp-project-column": GhpProjectColumn,
     "ghp-column-card": GhpColumnCard
   },
+  /**
+   * ToDo: 
+   * - Refactoring naming
+   * - Refresh view after moving a card
+   * -- maybe add some sleep to give github some time!?
+   * - why No Cards available is still displaying after cards are available?
+   */
   data () {
     return {
       __fetcher: null,
@@ -49,7 +56,7 @@ export default {
     onSearchChanged (searchInput) {
       if (searchInput) {
         this.currentSearchInput = searchInput;
-        this.projectsKey = JSON.stringify(searchInput);
+        this.projectsKey = searchInput.repo;
         this._fetchProjectsData(searchInput);
       } else {
         this.currentSearchInput = null;
