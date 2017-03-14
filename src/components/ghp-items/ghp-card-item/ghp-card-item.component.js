@@ -1,11 +1,11 @@
-import bus from "./../../helper/bus";
-import ShowdownHelper from "./../../helper/showdown.helper";
-import MomentHelper from "./../../helper/moment.helper";
-import FetchHelper from "./../../helper/fetch.helper";
-import StorageHelper from "./../../helper/storage.helper";
+import bus from "./../../../helper/bus";
+import ShowdownHelper from "./../../../helper/showdown.helper";
+import MomentHelper from "./../../../helper/moment.helper";
+import FetchHelper from "./../../../helper/fetch.helper";
+import StorageHelper from "./../../../helper/storage.helper";
 
 export default {
-  name: "ghpColumnCard",
+  name: "ghpCardItem",
   props: ["card", "currentColumnId", "availableColumns"],
   data () {
     return {

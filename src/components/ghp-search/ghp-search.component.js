@@ -1,5 +1,5 @@
-import StorageHelper from "./../../helper/storage.helper";
 import bus from "./../../helper/bus.js";
+import StorageHelper from "./../../helper/storage.helper";
 
 export default {
   name: "ghpSearch",

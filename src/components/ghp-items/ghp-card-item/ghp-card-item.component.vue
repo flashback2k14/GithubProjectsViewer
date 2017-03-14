@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script src="./ghp-column-card.component.js"></script>
+<script src="./ghp-card-item.component.js"></script>
 
 <style scoped>
   .title-container {

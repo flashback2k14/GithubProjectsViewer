@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script src="./ghp-project-column.component.js"></script>
+<script src="./ghp-column-item.component.js"></script>
 
 <style scoped>
   .body-style {

@@ -1,5 +1,5 @@
-import ShowdownHelper from "./../../helper/showdown.helper";
-import bus from "./../../helper/bus";
+import bus from "./../../../helper/bus";
+import ShowdownHelper from "./../../../helper/showdown.helper";
 
 export default {
   name: "ghpProjectItem",

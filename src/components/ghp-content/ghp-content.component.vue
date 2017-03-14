@@ -26,11 +26,11 @@
     <div class="separator-spacer"></div>
     <!-- row content -->
     <div class="columns-container" v-if="currentSearchInput != null">
-      <ghp-project-column 
+      <ghp-column-item 
         v-for="column in columns[selectedProject]"
         :key="column.id"
         :column="column">
-      </ghp-project-column>
+      </ghp-column-item>
     </div>
     <div class="non-available-container" v-if="columnsNonAvailable">
       <div class="non-available-text">No Columns avaiable!</div>
@@ -40,13 +40,13 @@
     <div class="separator-spacer"></div>
     <!-- row content -->
     <div class="cards-container" v-if="currentSearchInput !== null">
-      <ghp-column-card
+      <ghp-card-item
         v-for="card in cards[selectedColumn]"
         :key="card.id"
         :card="card"
         :currentColumnId="selectedColumn"
         :availableColumns="columnItems">
-      </ghp-column-card>
+      </ghp-card-item>
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
       <div class="non-available-text">No Cards avaiable!</div>

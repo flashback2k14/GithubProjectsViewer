@@ -2,15 +2,15 @@ import bus from "./../../helper/bus.js";
 import FetchHelper from "./../../helper/fetch.helper";
 import StorageHelper from "./../../helper/storage.helper";
 import GhpProjectItem from "./../ghp-project-item/ghp-project-item.component.vue";
-import GhpProjectColumn from "./../ghp-project-column/ghp-project-column.component.vue";
-import GhpColumnCard from "./../ghp-column-card/ghp-column-card.component.vue";
+import GhpColumnItem from "./../ghp-column-item/ghp-column-item.component.vue";
+import GhpCardItem from "./../ghp-card-item/ghp-card-item.component.vue";
 
 export default {
   name: "ghpContent",
   components: {
     "ghp-project-item": GhpProjectItem,
-    "ghp-project-column": GhpProjectColumn,
-    "ghp-column-card": GhpColumnCard
+    "ghp-column-item": GhpColumnItem,
+    "ghp-card-item": GhpCardItem
   },
   data () {
     return {
