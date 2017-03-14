@@ -33,7 +33,7 @@ class FetchHelper {
   }
 
   _getAllCardsFromColumnUrl (columnId) {
-    return `https://api.github.com/projects/columns/${columnId}/cards`;
+    return `https://api.github.com/projects/columns/${columnId}/cards?v=${new Date().toISOString()}`;
   }
 
   _postMoveCardToColumUrl (cardId) {

@@ -42,6 +42,7 @@ export default {
     this._deinit();
   },
   methods: {
+    // life cycle events
     _init () {
       if (!this.__fetcher) {
         this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
@@ -53,6 +54,7 @@ export default {
       this.selected = "";
       this.moveOptions = [];
     },
+    // setup options select
     _setupMoveSelection () {
       this.moveOptions = this.availableColumns;
       const selectedItems = this.availableColumns.filter(column => {
@@ -62,6 +64,7 @@ export default {
       });
       this.selected = selectedItems[0].id;
     },
+    // fetch issue data from Github API
     _onFetchGithubIssue () {
       if (!this.card.note && this.card.content_url) {
         this.__fetcher.getIssueData(this.card.content_url)
@@ -71,10 +74,11 @@ export default {
           .catch(error => console.error(error));
       }
     },
+    // move card to another column
     _moveCardToSelectedColumn (columnId) {
       this.__fetcher.moveCardToAnotherColumn(this.card.id, columnId)
         .then(result => {
-          bus.$emit("show-column-cards", columnId);
+          bus.$emit("move-card-to-column", columnId);
         })
         .catch(error => console.error(error));
     }

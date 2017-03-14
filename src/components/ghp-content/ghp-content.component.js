@@ -44,12 +44,14 @@ export default {
     bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
     bus.$on("show-column-cards", this.onShowColumnCards);
+    bus.$on("move-card-to-column", this.onMoveCardToColumn);
   },
   destroyed () {
     bus.$off("search-changed", this.onSearchChanged);
     bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
+    bus.$off("move-card-to-column", this.onMoveCardToColumn);
     this._deinit();
   },
   methods: {
@@ -79,6 +81,15 @@ export default {
     },
     onShowColumnCards (columnId) {
       if (columnId) {
+        this.selectedColumn = columnId;
+        this._fetchCardsData(columnId);
+      }
+    },
+    onMoveCardToColumn (columnId) {
+      if (columnId) {
+        this.cards = {};
+        this.cardIds = [];
+        this.cardsNonAvailable = true;
         this.selectedColumn = columnId;
         this._fetchCardsData(columnId);
       }
