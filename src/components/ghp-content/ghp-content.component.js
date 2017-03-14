@@ -12,13 +12,6 @@ export default {
     "ghp-project-column": GhpProjectColumn,
     "ghp-column-card": GhpColumnCard
   },
-  /**
-   * ToDo: 
-   * - Refactoring naming
-   * - Refresh view after moving a card
-   * -- maybe add some sleep to give github some time!?
-   * - why No Cards available is still displaying after cards are available?
-   */
   data () {
     return {
       __fetcher: null,
