@@ -48,6 +48,17 @@ export default {
     this._deinit();
   },
   methods: {
+    // life cycle events
+    _init () {
+      if (!this.__fetcher) {
+        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                          StorageHelper.get(StorageHelper.Keys.PW));
+      }
+    },
+    _deinit() {
+      this.__fetcher = null;
+      this._clearData();
+    },
     // event handler
     onSearchChanged (searchInput) {
       if (searchInput) {
@@ -87,16 +98,9 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
-    // life cycle events
-    _init () {
-      if (!this.__fetcher) {
-        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                          StorageHelper.get(StorageHelper.Keys.PW));
-      }
-    },
-    _deinit() {
-      this.__fetcher = null;
-      this._clearData();
+    // click events
+    addNewCard () {
+      alert(this.selectedColumn);
     },
     // data fetcher
     _fetchProjectsData (search) {

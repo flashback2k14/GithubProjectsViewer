@@ -58,7 +58,6 @@
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
-    margin-top: 12px;
   }
 
   .anchor-style {
@@ -69,5 +68,19 @@
   }
   .anchor-style:visited {
     color: #424242;
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .content-container {
+      margin-top: 12px;
+    }
+
+    .anchor-style {
+      display: flex;
+      flex: 1 1 auto;
+      justify-content: center;
+      font-size: small;
+    }
   }
 </style>

@@ -50,6 +50,11 @@
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
       <div class="non-available-text">No Cards avaiable!</div>
+      <div class="non-available-spacer" v-if="selectedColumn"></div>
+      <div class="non-available-text_mid non-available-text_pointer"
+        @click="addNewCard()" v-if="selectedColumn">
+        Add a new card <strong>+</strong>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +72,8 @@
   .error-container,
   .non-available-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 6px 0 12px 0;
   }
@@ -78,6 +85,24 @@
   .non-available-text {
     font-size: large;
     color: #424242;
+  }
+
+  .non-available-text_mid {
+    margin-bottom: 12px;
+    font-size: medium;
+    color: #424242;
+  }
+
+  .non-available-text_mid:hover {
+    text-decoration: underline;
+  }
+
+  .non-available-text_pointer {
+    cursor: pointer;
+  }
+
+  .non-available-spacer {
+    height: 12px;
   }
 
   .projects-container,
