@@ -13,7 +13,8 @@
     <!-- row content -->
     <div class="projects-container" v-if="currentSearchInput != null">
       <ghp-project-item 
-        v-for="project in projects[projectsKey]" 
+        v-for="project in projects[selectedRepo]" 
+        :key="project.id"
         :project="project">
       </ghp-project-item>
     </div>
@@ -26,7 +27,8 @@
     <!-- row content -->
     <div class="columns-container" v-if="currentSearchInput != null">
       <ghp-project-column 
-        v-for="column in projectColumns[projectColumnsKey]"
+        v-for="column in columns[selectedProject]"
+        :key="column.id"
         :column="column">
       </ghp-project-column>
     </div>
@@ -39,8 +41,11 @@
     <!-- row content -->
     <div class="cards-container" v-if="currentSearchInput !== null">
       <ghp-column-card
-        v-for="card in projectColumnCards[projectColumnCardsKey]"
-        :card="card">
+        v-for="card in cards[selectedColumn]"
+        :key="card.id"
+        :card="card"
+        :currentColumnId="selectedColumn"
+        :availableColumns="columnItems">
       </ghp-column-card>
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">

@@ -14,36 +14,46 @@ export default {
   },
   data () {
     return {
+      __fetcher: null,
       currentSearchInput: {},
       errorMessage: "",
+      selectedRepo: "",
       projects: {},
-      projectsKey: "",
-      projectColumns: {},
-      projectColumnsKey: "",
-      projectColumnCards: {},
-      projectColumnCardsKey: "",
+      projectItems: [],
       projectsNonAvailable: true,
+      selectedProject: "",
+      columns: {},
+      columnItems: [],
       columnsNonAvailable: true,
+      selectedColumn: "",
+      cards: {},
+      cardIds: [],
       cardsNonAvailable: true,
     }
   },
   created () {
+    this._init();
     bus.$on("search-changed", this.onSearchChanged);
     bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
     bus.$on("show-column-cards", this.onShowColumnCards);
+    bus.$on("move-card-to-column", this.onMoveCardToColumn);
   },
   destroyed () {
     bus.$off("search-changed", this.onSearchChanged);
     bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
+    bus.$off("move-card-to-column", this.onMoveCardToColumn);
+    this._deinit();
   },
   methods: {
+    // event handler
     onSearchChanged (searchInput) {
       if (searchInput) {
+        this._clearData();
         this.currentSearchInput = searchInput;
-        this.projectsKey = JSON.stringify(searchInput);
+        this.selectedRepo = searchInput.repo;
         this._fetchProjectsData(searchInput);
       } else {
         this.currentSearchInput = null;
@@ -57,84 +67,131 @@ export default {
     },
     onShowProjectColumns (projectId) {
       if (projectId) {
-        this.projectColumnsKey = projectId;
+        this.selectedProject = projectId;
         this._fetchColumnsData(projectId);
         this._fetchCardsData(-1);
       }
     },
     onShowColumnCards (columnId) {
       if (columnId) {
-        this.projectColumnCardsKey = columnId;
+        this.selectedColumn = columnId;
         this._fetchCardsData(columnId);
       }
     },
+    onMoveCardToColumn (columnId) {
+      if (columnId) {
+        this.cards = {};
+        this.cardIds = [];
+        this.cardsNonAvailable = true;
+        this.selectedColumn = columnId;
+        this._fetchCardsData(columnId);
+      }
+    },
+    // life cycle events
+    _init () {
+      if (!this.__fetcher) {
+        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                          StorageHelper.get(StorageHelper.Keys.PW));
+      }
+    },
+    _deinit() {
+      this.__fetcher = null;
+      this._clearData();
+    },
+    // data fetcher
     _fetchProjectsData (search) {
-      if (this.projects.hasOwnProperty(this.projectsKey)) return;
-      
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER), 
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getProjectsData(search.username, search.repo)
+      // return if searched data is already available
+      if (this.projects.hasOwnProperty(this.selectedRepo)) return;
+      // fetch data from Github API
+      this.__fetcher.getProjectsData(search.username, search.repo)
         .then(result => {
-          if (result.length > 0) {
-            this.$set(this.projects, this.projectsKey, result);
-            this.projectsNonAvailable = false;
-          } else {
+          // no projects available
+          if (result.length === 0) {
             this._clearData();
+            return;
           }
+          // set result to columns object
+          this.$set(this.projects, this.selectedRepo, result);
+          // change flag value
+          this.projectsNonAvailable = false;
+          // set project items
+          this.projectItems = result.map(project => { 
+            return { 
+              id: project.id, 
+              name: project.name 
+            };
+          });
         })
         .catch(error => this.errorMessage = error.message);
     },
     _fetchColumnsData (id) {
-      if (this.projectColumns.hasOwnProperty(this.projectColumnsKey)) return;
-
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getColumnsDataById(id)
+      // return if data for id is already available
+      if (this.columns.hasOwnProperty(this.selectedProject)) return;
+      // fetch data from Github API
+      this.__fetcher.getColumnsDataById(id)
         .then(result => {
-          if (result.length > 0) {
-            this.$set(this.projectColumns, this.projectColumnsKey, result);
-            this.columnsNonAvailable = false;
-          } else {
+          // no columns available
+          if (result.length === 0) {
             this.columnsNonAvailable = true;
+            return;
           }
+          // set result to columns object
+          this.$set(this.columns, this.selectedProject, result);
+          // change flag value
+          this.columnsNonAvailable = false;
+          // set column items
+          this.columnItems = result.map(column => { 
+            return { 
+              id: column.id, 
+              name: column.name 
+            };
+          });
         })
         .catch(error => this.errorMessage = error.message);
     },
     _fetchCardsData (id) {
+      // clear cards if id is -1 and return
       if (id === -1) {
-        this.projectColumnCards = {};
-        this.projectColumnCardsKey = "";
+        this.selectedColumn = "";
+        this.cards = {};
+        this.cardsNonAvailable = true;
         return;
       }
-
-      if (this.projectColumnCards.hasOwnProperty(this.projectColumnCardsKey)) return;
-
-      const fh = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                  StorageHelper.get(StorageHelper.Keys.PW));
-
-      fh.getCardsDataById(id)
+      // return if data for id is already available
+      if (this.cards.hasOwnProperty(this.selectedColumn)) return;
+      // fetch data from Github API
+      this.__fetcher.getCardsDataById(id)
         .then(result => {
-          if (result.length > 0) {
-            this.$set(this.projectColumnCards, this.projectColumnCardsKey, result);
-            this.cardsNonAvailable = false;
-          } else {
+          // no cards available
+          if (result.length === 0) {
+            this.cards = {};
+            this.cardIds = [];
             this.cardsNonAvailable = true;
+            return;
           }
+          // set result to cards object
+          this.$set(this.cards, this.selectedColumn, result);
+          // change flag value
+          this.cardsNonAvailable = false;
+          // set card ids
+          this.cardIds = result.map(card => card.id);
         })
         .catch(error => this.errorMessage = error.message);
     },
+    // clear all data
     _clearData () {
-      this.projectsNonAvailable = true;
-      this.columnsNonAvailable = true;
-      this.cardsNonAvailable = true;
+      this.selectedRepo = "";
       this.projects = {};
-      this.projectsKey = "";
-      this.projectColumns = {};
-      this.projectColumnsKey = "";
-      this.projectColumnCards = {};
-      this.projectColumnCardsKey = "";
+      this.projectItems = [];
+      this.projectsNonAvailable = true;
+      this.selectedProject = "";
+      this.columns = {};
+      this.columnItems = [];
+      this.columnsNonAvailable = true;
+      this.selectedColumn = "";
+      this.cards = {};
+      this.cardIds = [];
+      this.cardsNonAvailable = true;
     }
   }
 }

@@ -28,12 +28,16 @@ class FetchHelper {
     return `https://api.github.com/repos/${username}/${repo}/projects`;
   }
 
-  _getAllColumnsFromProject (projectId) {
+  _getAllColumnsFromProjectUrl (projectId) {
     return `https://api.github.com/projects/${projectId}/columns`;
   }
 
-  _getAllCardsFromColumn (columnId) {
-    return `https://api.github.com/projects/columns/${columnId}/cards`;
+  _getAllCardsFromColumnUrl (columnId) {
+    return `https://api.github.com/projects/columns/${columnId}/cards?v=${new Date().toISOString()}`;
+  }
+
+  _postMoveCardToColumUrl (cardId) {
+    return `https://api.github.com/projects/columns/cards/${cardId}/moves`;
   }
 
   getProjectsData (username, repo) {
@@ -50,7 +54,7 @@ class FetchHelper {
 
   getColumnsDataById (id) {
     return new Promise((resolve, reject) => {
-      fetch(this._getAllColumnsFromProject(id), {
+      fetch(this._getAllColumnsFromProjectUrl(id), {
         method: "GET",
         headers: this._getHeader()
       })
@@ -62,9 +66,25 @@ class FetchHelper {
 
   getCardsDataById (id) {
     return new Promise((resolve, reject) => {
-      fetch(this._getAllCardsFromColumn(id), {
+      fetch(this._getAllCardsFromColumnUrl(id), {
         method: "GET",
         headers: this._getHeader()
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
+
+  moveCardToAnotherColumn (cardId, columnId) {
+    return new Promise((resolve, reject) => {
+      fetch(this._postMoveCardToColumUrl(cardId), {
+        method: "POST",
+        headers: this._getHeader(),
+        body: JSON.stringify({
+          "position": "top",
+          "column_id": columnId
+        })
       })
       .then(r => r.json())
       .then(data => resolve(data))
