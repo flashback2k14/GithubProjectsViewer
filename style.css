@@ -82,6 +82,7 @@ footer {
 
 .separator-title {
   padding: 0 6px 0 6px;
+  font-size: large;
   font-weight: bolder;
   cursor: pointer;
 }

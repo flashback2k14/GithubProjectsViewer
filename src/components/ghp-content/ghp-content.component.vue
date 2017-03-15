@@ -26,11 +26,11 @@
     <div class="separator-spacer"></div>
     <!-- row content -->
     <div class="columns-container" v-if="currentSearchInput != null">
-      <ghp-project-column 
+      <ghp-column-item 
         v-for="column in columns[selectedProject]"
         :key="column.id"
         :column="column">
-      </ghp-project-column>
+      </ghp-column-item>
     </div>
     <div class="non-available-container" v-if="columnsNonAvailable">
       <div class="non-available-text">No Columns avaiable!</div>
@@ -40,17 +40,31 @@
     <div class="separator-spacer"></div>
     <!-- row content -->
     <div class="cards-container" v-if="currentSearchInput !== null">
-      <ghp-column-card
+      <ghp-card-item
         v-for="card in cards[selectedColumn]"
         :key="card.id"
         :card="card"
         :currentColumnId="selectedColumn"
         :availableColumns="columnItems">
-      </ghp-column-card>
+      </ghp-card-item>
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
       <div class="non-available-text">No Cards avaiable!</div>
     </div>
+    <!-- spacer -->
+    <div class="non-available-spacer" v-if="showNewCardButton"></div>
+    <!-- new cards -->
+    <div class="new-card-container" v-if="showNewCardButton">
+      <div class="non-available-text_mid non-available-text_pointer"
+        @click="openNewCardModal()">
+        ADD A NEW CARD <strong>+</strong>
+      </div>
+    </div>
+    <!-- modals -->
+    <ghp-new-card-modal
+      :show="showNewCardModal"
+      :on-close="handleCloseNewCardModel">
+    </ghp-new-card-modal>
   </div>
 </template>
 
@@ -65,8 +79,11 @@
   }
 
   .error-container,
-  .non-available-container {
+  .non-available-container,
+  .new-card-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
     margin: 6px 0 12px 0;
   }
@@ -78,6 +95,24 @@
   .non-available-text {
     font-size: large;
     color: #424242;
+  }
+
+  .non-available-text_mid {
+    margin-bottom: 12px;
+    font-size: medium;
+    color: #424242;
+  }
+
+  .non-available-text_mid:hover {
+    text-decoration: underline;
+  }
+
+  .non-available-text_pointer {
+    cursor: pointer;
+  }
+
+  .non-available-spacer {
+    height: 12px;
   }
 
   .projects-container,

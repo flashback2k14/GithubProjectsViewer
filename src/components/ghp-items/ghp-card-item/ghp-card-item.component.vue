@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script src="./ghp-column-card.component.js"></script>
+<script src="./ghp-card-item.component.js"></script>
 
 <style scoped>
   .title-container {
@@ -51,7 +51,7 @@
   .select-style {
     width: 130px;
     padding: 4px 0 4px 4px;
-    background: white url("./../../../assets/down.svg") no-repeat 90% 50%;
+    background: white url("./../../../../assets/down.svg") no-repeat 90% 50%;
     font-size: small;
     border: 0 solid white;
     border-bottom: 1px solid #424242;

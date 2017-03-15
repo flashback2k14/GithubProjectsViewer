@@ -1,8 +1,8 @@
-import MomentHelper from "./../../helper/moment.helper";
-import bus from "./../../helper/bus";
+import bus from "./../../../helper/bus";
+import MomentHelper from "./../../../helper/moment.helper";
 
 export default {
-  name: "ghpProjectColumn",
+  name: "ghpColumnItem",
   props: ["column"],
   data () {
     return {}

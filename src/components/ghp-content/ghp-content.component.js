@@ -1,16 +1,18 @@
 import bus from "./../../helper/bus.js";
 import FetchHelper from "./../../helper/fetch.helper";
 import StorageHelper from "./../../helper/storage.helper";
-import GhpProjectItem from "./../ghp-project-item/ghp-project-item.component.vue";
-import GhpProjectColumn from "./../ghp-project-column/ghp-project-column.component.vue";
-import GhpColumnCard from "./../ghp-column-card/ghp-column-card.component.vue";
+import GhpProjectItem from "./../ghp-items/ghp-project-item/ghp-project-item.component.vue";
+import GhpColumnItem from "./../ghp-items/ghp-column-item/ghp-column-item.component.vue";
+import GhpCardItem from "./../ghp-items/ghp-card-item/ghp-card-item.component.vue";
+import GhpNewCardModel from "./../ghp-modals/ghp-new-card-modal/ghp-new-card-modal.component.vue";
 
 export default {
   name: "ghpContent",
   components: {
     "ghp-project-item": GhpProjectItem,
-    "ghp-project-column": GhpProjectColumn,
-    "ghp-column-card": GhpColumnCard
+    "ghp-column-item": GhpColumnItem,
+    "ghp-card-item": GhpCardItem,
+    "ghp-new-card-modal": GhpNewCardModel
   },
   data () {
     return {
@@ -29,6 +31,8 @@ export default {
       cards: {},
       cardIds: [],
       cardsNonAvailable: true,
+      showNewCardButton: false,
+      showNewCardModal: false
     }
   },
   created () {
@@ -48,6 +52,17 @@ export default {
     this._deinit();
   },
   methods: {
+    // life cycle events
+    _init () {
+      if (!this.__fetcher) {
+        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                          StorageHelper.get(StorageHelper.Keys.PW));
+      }
+    },
+    _deinit() {
+      this.__fetcher = null;
+      this._clearData();
+    },
     // event handler
     onSearchChanged (searchInput) {
       if (searchInput) {
@@ -75,6 +90,7 @@ export default {
     onShowColumnCards (columnId) {
       if (columnId) {
         this.selectedColumn = columnId;
+        this.showNewCardButton = true;
         this._fetchCardsData(columnId);
       }
     },
@@ -87,16 +103,36 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
-    // life cycle events
-    _init () {
-      if (!this.__fetcher) {
-        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                          StorageHelper.get(StorageHelper.Keys.PW));
-      }
+    // modal
+    openNewCardModal () {
+      this.showNewCardModal = true;
     },
-    _deinit() {
-      this.__fetcher = null;
-      this._clearData();
+    handleCloseNewCardModel (noteText) {
+      // check if note text is available 
+      if (!noteText) {
+        this.showNewCardModal = false;
+        console.error("No Text available!");
+        return;
+      }
+      // add new Card to Github
+      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
+        .then(result => {
+          // close modal
+          this.showNewCardModal = false;
+          // check if result is empty
+          if (!result) return;
+          // check if cards has already data
+          //  YES = push result into cards array
+          //  NOPE = init cards object
+          if (this.cards) {
+            this.cards[this.selectedColumn].push(result); 
+          } else {
+            this.$set(this.cards, this.selectedColumn, result);
+          }
+          // add cards id to array
+          this.cardIds.push(result.id);
+        })
+        .catch(error => this.errorMessage = error.message);
     },
     // data fetcher
     _fetchProjectsData (search) {
@@ -192,6 +228,8 @@ export default {
       this.cards = {};
       this.cardIds = [];
       this.cardsNonAvailable = true;
+      this.showNewCardButton = false;
+      this.showNewCardModal = false;
     }
   }
 }

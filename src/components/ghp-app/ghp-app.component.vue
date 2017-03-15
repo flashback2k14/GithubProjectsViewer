@@ -22,8 +22,10 @@
     </main>
     <!-- footer -->
     <footer>
+      <!-- githug icon -->
       <a href="https://github.com/flashback2k14/GithubProjectsViewer" 
         target="_blank" class="anchor-style">
+        <img class="icon-style" src="./../../../assets/github.svg" alt="Github Icon">
         View Source Code on Github created by flashback2k14
       </a>
     </footer>
@@ -58,10 +60,11 @@
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
-    margin-top: 12px;
   }
 
   .anchor-style {
+    display: flex;
+    flex: 1 1 auto;
     text-decoration: none;
   }
   .anchor-style:hover {
@@ -69,5 +72,22 @@
   }
   .anchor-style:visited {
     color: #424242;
+  }
+
+  .icon-style {
+    /*padding-top: 6px;*/
+    margin-right: 12px;
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .content-container {
+      margin-top: 12px;
+    }
+
+    .anchor-style {
+      justify-content: center;
+      font-size: small;
+    }
   }
 </style>
