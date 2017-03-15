@@ -40,6 +40,10 @@ class FetchHelper {
     return `https://api.github.com/projects/columns/cards/${cardId}/moves`;
   }
 
+  _postAddNewCardToColumnUrl (columnId) {
+    return `https://api.github.com/projects/columns/${columnId}/cards`;
+  }
+
   getProjectsData (username, repo) {
     return new Promise((resolve, reject) => {
       fetch(this._getAllProjectsUrl(username, repo), {
@@ -76,6 +80,18 @@ class FetchHelper {
     });
   }
 
+  getIssueData (url) {
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: "GET",
+        headers: this._getIssueHeader()
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
+
   moveCardToAnotherColumn (cardId, columnId) {
     return new Promise((resolve, reject) => {
       fetch(this._postMoveCardToColumUrl(cardId), {
@@ -92,11 +108,14 @@ class FetchHelper {
     });
   }
 
-  getIssueData (url) {
+  addNewCardToColumn (columnId, noteText) {
     return new Promise((resolve, reject) => {
-      fetch(url, {
-        method: "GET",
-        headers: this._getIssueHeader()
+      fetch(this._postAddNewCardToColumnUrl(columnId), {
+        method: "POST",
+        headers: this._getHeader(),
+        body: JSON.stringify({
+          "note": noteText
+        })
       })
       .then(r => r.json())
       .then(data => resolve(data))

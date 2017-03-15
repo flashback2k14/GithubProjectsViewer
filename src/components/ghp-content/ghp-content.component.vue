@@ -52,10 +52,15 @@
       <div class="non-available-text">No Cards avaiable!</div>
       <div class="non-available-spacer" v-if="selectedColumn"></div>
       <div class="non-available-text_mid non-available-text_pointer"
-        @click="addNewCard()" v-if="selectedColumn">
+        @click="openNewCardModal()" v-if="selectedColumn">
         Add a new card <strong>+</strong>
       </div>
     </div>
+
+    <ghp-new-card-modal
+      :show="showNewCardModal"
+      :on-close="handleCloseNewCardModel">
+    </ghp-new-card-modal>
   </div>
 </template>
 

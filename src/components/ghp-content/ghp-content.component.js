@@ -1,16 +1,18 @@
 import bus from "./../../helper/bus.js";
 import FetchHelper from "./../../helper/fetch.helper";
 import StorageHelper from "./../../helper/storage.helper";
-import GhpProjectItem from "./../ghp-project-item/ghp-project-item.component.vue";
-import GhpColumnItem from "./../ghp-column-item/ghp-column-item.component.vue";
-import GhpCardItem from "./../ghp-card-item/ghp-card-item.component.vue";
+import GhpProjectItem from "./../ghp-items/ghp-project-item/ghp-project-item.component.vue";
+import GhpColumnItem from "./../ghp-items/ghp-column-item/ghp-column-item.component.vue";
+import GhpCardItem from "./../ghp-items/ghp-card-item/ghp-card-item.component.vue";
+import GhpNewCardModel from "./../ghp-modals/ghp-new-card-modal/ghp-new-card-modal.component.vue";
 
 export default {
   name: "ghpContent",
   components: {
     "ghp-project-item": GhpProjectItem,
     "ghp-column-item": GhpColumnItem,
-    "ghp-card-item": GhpCardItem
+    "ghp-card-item": GhpCardItem,
+    "ghp-new-card-modal": GhpNewCardModel
   },
   data () {
     return {
@@ -29,6 +31,7 @@ export default {
       cards: {},
       cardIds: [],
       cardsNonAvailable: true,
+      showNewCardModal: false
     }
   },
   created () {
@@ -98,9 +101,30 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
-    // click events
-    addNewCard () {
-      alert(this.selectedColumn);
+    // modal
+    openNewCardModal () {
+      this.showNewCardModal = true;
+    },
+    handleCloseNewCardModel (e) {
+      const noteText = e;
+      if (!noteText) {
+        console.error("No Text available!");
+        return;
+      }
+      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
+        .then(result => {
+          this.showNewCardModal = false;
+
+          if (!result) return;
+
+          if (this.cards) {
+            this.$set(this.cards, this.selectedColumn, result);
+          } else {
+            this.cards[this.selectedColumn].push(result); 
+          }
+          this.cardIds.push(result.id);
+        })
+        .catch(error => this.errorMessage = error.message);
     },
     // data fetcher
     _fetchProjectsData (search) {
@@ -196,6 +220,7 @@ export default {
       this.cards = {};
       this.cardIds = [];
       this.cardsNonAvailable = true;
+      this.showNewCardModal = false;
     }
   }
 }
