@@ -31,6 +31,7 @@ export default {
       cards: {},
       cardIds: [],
       cardsNonAvailable: true,
+      showNewCardButton: false,
       showNewCardModal: false
     }
   },
@@ -89,6 +90,7 @@ export default {
     onShowColumnCards (columnId) {
       if (columnId) {
         this.selectedColumn = columnId;
+        this.showNewCardButton = true;
         this._fetchCardsData(columnId);
       }
     },
@@ -105,23 +107,29 @@ export default {
     openNewCardModal () {
       this.showNewCardModal = true;
     },
-    handleCloseNewCardModel (e) {
-      const noteText = e;
+    handleCloseNewCardModel (noteText) {
+      // check if note text is available 
       if (!noteText) {
+        this.showNewCardModal = false;
         console.error("No Text available!");
         return;
       }
+      // add new Card to Github
       this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
         .then(result => {
+          // close modal
           this.showNewCardModal = false;
-
+          // check if result is empty
           if (!result) return;
-
+          // check if cards has already data
+          //  YES = push result into cards array
+          //  NOPE = init cards object
           if (this.cards) {
-            this.$set(this.cards, this.selectedColumn, result);
-          } else {
             this.cards[this.selectedColumn].push(result); 
+          } else {
+            this.$set(this.cards, this.selectedColumn, result);
           }
+          // add cards id to array
           this.cardIds.push(result.id);
         })
         .catch(error => this.errorMessage = error.message);
@@ -220,6 +228,7 @@ export default {
       this.cards = {};
       this.cardIds = [];
       this.cardsNonAvailable = true;
+      this.showNewCardButton = false;
       this.showNewCardModal = false;
     }
   }

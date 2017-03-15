@@ -50,13 +50,17 @@
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
       <div class="non-available-text">No Cards avaiable!</div>
-      <div class="non-available-spacer" v-if="selectedColumn"></div>
+    </div>
+    <!-- spacer -->
+    <div class="non-available-spacer" v-if="showNewCardButton"></div>
+    <!-- new cards -->
+    <div class="new-card-container" v-if="showNewCardButton">
       <div class="non-available-text_mid non-available-text_pointer"
-        @click="openNewCardModal()" v-if="selectedColumn">
-        Add a new card <strong>+</strong>
+        @click="openNewCardModal()">
+        ADD A NEW CARD <strong>+</strong>
       </div>
     </div>
-
+    <!-- modals -->
     <ghp-new-card-modal
       :show="showNewCardModal"
       :on-close="handleCloseNewCardModel">
@@ -75,7 +79,8 @@
   }
 
   .error-container,
-  .non-available-container {
+  .non-available-container,
+  .new-card-container {
     display: flex;
     flex-direction: column;
     align-items: center;

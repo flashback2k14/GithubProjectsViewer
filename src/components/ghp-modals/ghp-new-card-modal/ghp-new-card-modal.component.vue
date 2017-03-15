@@ -74,6 +74,7 @@
   }
 
   .modal-footer_text-right {
+    margin-top: -8px;
     padding-right: 12px;
     padding-bottom: 12px;
     text-align: right;
