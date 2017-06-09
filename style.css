@@ -19,7 +19,7 @@ body {
 main {
   display: flex;
   flex: 1 0 auto;
-  margin: 120px 12px 48px 12px;
+  margin: 128px 12px 48px 12px;
   overflow: auto;
 }
 
