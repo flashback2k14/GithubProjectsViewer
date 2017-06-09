@@ -16,24 +16,10 @@ body {
   overflow: auto;
 }
 
-header {
-  display: flex;
-  flex: 0 0 48px;
-  align-items: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: calc(100% - 24px);
-  padding: 12px;
-  background: #283593;
-  color: white;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
-}
-
 main {
   display: flex;
   flex: 1 0 auto;
-  margin: 36px 12px 48px 12px;
+  margin: 128px 12px 48px 12px;
   overflow: auto;
 }
 

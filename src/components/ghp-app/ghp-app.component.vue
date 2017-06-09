@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- header -->
-    <ghp-header></ghp-header>
+    <ghp-header>
+      <!-- search -->
+      <ghp-search></ghp-search>
+    </ghp-header>
     <!-- main -->
     <main>
       <!-- login -->
@@ -10,11 +13,6 @@
       </section>
       <!-- content -->
       <section class="content-section" v-bind:style="{ display: contenVisbile }">
-        <!-- search -->
-        <div class="search-container">
-          <ghp-search></ghp-search>
-        </div>
-        <!-- projects -->
         <div class="content-container">
           <ghp-content></ghp-content>
         </div>
@@ -48,14 +46,6 @@
     flex-direction: column;
   }
 
-  .search-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-    margin-top: 24px;
-  }
-
   .content-container {
     display: flex;
     flex: 1 0 auto;
@@ -75,7 +65,6 @@
   }
 
   .icon-style {
-    /*padding-top: 6px;*/
     margin-right: 12px;
   }
 
@@ -84,7 +73,6 @@
     .content-container {
       margin-top: 12px;
     }
-
     .anchor-style {
       justify-content: center;
       font-size: small;
