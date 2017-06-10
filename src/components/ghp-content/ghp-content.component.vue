@@ -65,6 +65,8 @@
       :show="showNewCardModal"
       :on-close="handleCloseNewCardModel">
     </ghp-new-card-modal>
+    <!-- snackbar -->
+    <!--ToDo -->
   </div>
 </template>
 
