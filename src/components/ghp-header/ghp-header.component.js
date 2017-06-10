@@ -10,10 +10,11 @@ export default {
   },
   methods: {
     logout () {
+      bus.$emit("show-snackbar", "Logging out...", false);
+      bus.$emit("clear-search");
+      bus.$emit("clear-content");
       StorageHelper.remove(StorageHelper.Keys.USER);
       StorageHelper.remove(StorageHelper.Keys.PW);
-      StorageHelper.remove(StorageHelper.Keys.SEARCHUSER);
-      StorageHelper.remove(StorageHelper.Keys.SEARCHREPO);
       bus.$emit("should-viewstate-changed", false);
     }
   }

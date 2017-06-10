@@ -4,6 +4,7 @@ import GhpHeader from "./../ghp-header/ghp-header.component.vue";
 import GhpLogin from "./../ghp-login/ghp-login.component.vue";
 import GhpSearch from "./../ghp-search/ghp-search.component.vue";
 import GhpContent from "./../ghp-content/ghp-content.component.vue";
+import GhpSnackbar from "./../ghp-utils/ghp-snackbar/ghp-snackbar.component.vue";
 
 export default {
   name: "ghpApp",
@@ -11,7 +12,8 @@ export default {
     "ghp-header": GhpHeader,
     "ghp-login": GhpLogin,
     "ghp-search": GhpSearch,
-    "ghp-content": GhpContent
+    "ghp-content": GhpContent,
+    "ghp-snackbar": GhpSnackbar
   },
   data () {
     return {

@@ -1,12 +1,5 @@
 <template>
   <div class="content-section">
-    <!-- error message -->
-    <div class="error-container">
-      <div class="error-text"
-          v-if="currentSearchInput == null">
-        {{ errorMessage }}
-      </div>
-    </div>
     <!-- projects row -->
     <div class="separator-title">Projects</div>
     <div class="separator-spacer"></div>
@@ -65,8 +58,6 @@
       :show="showNewCardModal"
       :on-close="handleCloseNewCardModel">
     </ghp-new-card-modal>
-    <!-- snackbar -->
-    <!--ToDo -->
   </div>
 </template>
 
@@ -78,9 +69,9 @@
     flex-direction: column;
     flex-wrap: wrap;
     flex: 1 1 auto;
+    margin-top: 24px;
   }
 
-  .error-container,
   .non-available-container,
   .new-card-container {
     display: flex;
@@ -88,10 +79,6 @@
     align-items: center;
     justify-content: center;
     margin: 6px 0 12px 0;
-  }
-  .error-text {
-    font-size: large;
-    color: red;
   }
 
   .non-available-text {

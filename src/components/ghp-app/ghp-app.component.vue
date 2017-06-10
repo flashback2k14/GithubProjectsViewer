@@ -3,7 +3,7 @@
     <!-- header -->
     <ghp-header>
       <!-- search -->
-      <ghp-search></ghp-search>
+      <ghp-search v-bind:style="{ display: contenVisbile }"></ghp-search>
     </ghp-header>
     <!-- main -->
     <main>
@@ -17,6 +17,8 @@
           <ghp-content></ghp-content>
         </div>
       </section>
+      <!-- snackbar -->
+      <ghp-snackbar></ghp-snackbar>
     </main>
     <!-- footer -->
     <footer>
@@ -38,7 +40,7 @@
     flex: 1 1 350px;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 90px);
+    height: calc(100vh - 234px);
   }
 
   .content-section {

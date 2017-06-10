@@ -12,23 +12,32 @@ export default {
     }
   },
   created () {
-    this.getInputFromStorage();
+    bus.$on("clear-search", this.onClearSearch);
+    this._getInputFromStorage();
+  },
+  destroyed () {
+    bus.$off("clear-search", this.onClearSearch);
   },
   methods: {
+    // event listeners
     onSubmit (event) {
       if (this.search.username && this.search.repo) {
-        this.setInputToStorage(this.search);
+        this._setInputToStorage(this.search);
         bus.$emit("search-changed", this.search);
       } else {
-        this.setInputToStorage(null);
+        this._setInputToStorage(null);
         bus.$emit("search-changed", null);
       }
     },
     onClear (event) {
-      this.setInputToStorage(null);
-      bus.$emit("clear-content", null);
+      this._setInputToStorage(null);
+      bus.$emit("clear-content");
     },
-    setInputToStorage (search) {
+    onClearSearch (event) {
+      this._setInputToStorage(null);
+    },
+    // private functions
+    _setInputToStorage (search) {
       if (search) {
         StorageHelper.set(StorageHelper.Keys.SEARCHUSER, search.username);
         StorageHelper.set(StorageHelper.Keys.SEARCHREPO, search.repo);
@@ -39,7 +48,7 @@ export default {
         this.search.repo = "";
       }
     },
-    getInputFromStorage () {
+    _getInputFromStorage () {
       this.$set(this.search, "username", StorageHelper.get(StorageHelper.Keys.SEARCHUSER));
       this.$set(this.search, "repo", StorageHelper.get(StorageHelper.Keys.SEARCHREPO));
     }

@@ -49,6 +49,7 @@
   .btn-logout {
     display: flex;
     width: 120px;
+    margin-top: 4px;
     background: #283593;
     color: white;
     border: 0;
@@ -81,7 +82,11 @@
     }
     .btn-logout {
       width: 100px;
+      margin-top: 2px;
       font-size: small;
+    }
+    .btn-logout span {
+      padding-top: 5px;
     }
   }
 </style>
