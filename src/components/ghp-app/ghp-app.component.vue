@@ -3,7 +3,7 @@
     <!-- header -->
     <ghp-header>
       <!-- search -->
-      <ghp-search v-bind:style="{ display: contenVisbile }"></ghp-search>
+      <ghp-search v-bind:style="{ display: searchVisible }"></ghp-search>
     </ghp-header>
     <!-- main -->
     <main>
@@ -73,7 +73,7 @@
   /* Smartphones (portrait and landscape) ----------- */
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     .content-container {
-      margin-top: 12px;
+      margin-top: 24px;
     }
     .anchor-style {
       justify-content: center;

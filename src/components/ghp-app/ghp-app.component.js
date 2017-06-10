@@ -17,6 +17,7 @@ export default {
   },
   data () {
     return {
+      searchVisible: "none",
       loginVisible: "flex",
       contenVisbile: "none"
     }
@@ -41,9 +42,11 @@ export default {
     },
     changeViewState (shouldChange) {
       if (shouldChange) {
+        this.searchVisible = "flex";
         this.loginVisible = "none";
         this.contenVisbile = "flex";
       } else {
+        this.searchVisible = "none";
         this.loginVisible = "flex";
         this.contenVisbile = "none";
       }
