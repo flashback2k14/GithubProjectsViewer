@@ -29,7 +29,7 @@ export default {
         this.login.username = "";
         this.login.password = "";
         bus.$emit("should-viewstate-changed", true);
-        bus.$emit("init-fetcher");
+        bus.$emit("init-content-fetcher");
       }
     }
   }

@@ -35,8 +35,8 @@ export default {
     }
   },
   created () {
-    this.onInitFetcher();
-    bus.$on("init-fetcher", this.onInitFetcher);
+    this.onInitContentFetcher();
+    bus.$on("init-content-fetcher", this.onInitContentFetcher);
     bus.$on("search-changed", this.onSearchChanged);
     bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
@@ -44,7 +44,7 @@ export default {
     bus.$on("move-card-to-column", this.onMoveCardToColumn);
   },
   destroyed () {
-    bus.$off("init-fetcher", this.onInitFetcher);
+    bus.$off("init-content-fetcher", this.onInitContentFetcher);
     bus.$off("search-changed", this.onSearchChanged);
     bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
@@ -53,7 +53,7 @@ export default {
   },
   methods: {
     // event handler
-    onInitFetcher () {
+    onInitContentFetcher () {
       this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
                                         StorageHelper.get(StorageHelper.Keys.PW));
     },
