@@ -37,12 +37,12 @@
     width: 310px;
     margin-right: 20px;
     margin-bottom: 5px;
-    padding-bottom: 4px;
+    /*padding-bottom: 4px;*/
     background: #283593;
     color: #fff;
     border: 0;
     border-bottom: 1px solid #1A237E;
-    font-size: medium;
+    font-size: large;
   }
   .input-style:hover {
     border-bottom: 1px solid #FF1744;
@@ -52,8 +52,8 @@
   }
 
   .button-style {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     margin-left: 12px;
     border: 0;
     border-radius: 50%;

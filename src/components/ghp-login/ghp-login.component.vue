@@ -21,6 +21,7 @@
     display: flex;
     width: 350px;
     height: 175px;
+    /*margin-top: -48px;*/
   }
 
   .login-form {

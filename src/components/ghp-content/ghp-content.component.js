@@ -4,7 +4,7 @@ import StorageHelper from "./../../helper/storage.helper";
 import GhpProjectItem from "./../ghp-items/ghp-project-item/ghp-project-item.component.vue";
 import GhpColumnItem from "./../ghp-items/ghp-column-item/ghp-column-item.component.vue";
 import GhpCardItem from "./../ghp-items/ghp-card-item/ghp-card-item.component.vue";
-import GhpNewCardModel from "./../ghp-modals/ghp-new-card-modal/ghp-new-card-modal.component.vue";
+import GhpNewCardModel from "./../ghp-utils/ghp-new-card-modal/ghp-new-card-modal.component.vue";
 
 export default {
   name: "ghpContent",
@@ -18,7 +18,6 @@ export default {
     return {
       __fetcher: null,
       currentSearchInput: {},
-      errorMessage: "",
       selectedRepo: "",
       projects: {},
       projectItems: [],
@@ -36,7 +35,8 @@ export default {
     }
   },
   created () {
-    this._init();
+    this.onInitContentFetcher();
+    bus.$on("init-content-fetcher", this.onInitContentFetcher);
     bus.$on("search-changed", this.onSearchChanged);
     bus.$on("clear-content", this.onClearContent);
     bus.$on("show-project-columns", this.onShowProjectColumns);
@@ -44,26 +44,19 @@ export default {
     bus.$on("move-card-to-column", this.onMoveCardToColumn);
   },
   destroyed () {
+    bus.$off("init-content-fetcher", this.onInitContentFetcher);
     bus.$off("search-changed", this.onSearchChanged);
     bus.$off("clear-content", this.onClearContent);
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
     bus.$off("move-card-to-column", this.onMoveCardToColumn);
-    this._deinit();
   },
   methods: {
-    // life cycle events
-    _init () {
-      if (!this.__fetcher) {
-        this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
-                                          StorageHelper.get(StorageHelper.Keys.PW));
-      }
-    },
-    _deinit() {
-      this.__fetcher = null;
-      this._clearData();
-    },
     // event handler
+    onInitContentFetcher () {
+      this.__fetcher = new FetchHelper(StorageHelper.get(StorageHelper.Keys.USER),
+                                        StorageHelper.get(StorageHelper.Keys.PW));
+    },
     onSearchChanged (searchInput) {
       if (searchInput) {
         this._clearData();
@@ -71,9 +64,9 @@ export default {
         this.selectedRepo = searchInput.repo;
         this._fetchProjectsData(searchInput);
       } else {
-        this.currentSearchInput = null;
-        this.errorMessage = "Error username and/or repo is empty!";
+        this._showMessageToUser("Error username and/or repo is empty!");
         this._clearData();
+        this.currentSearchInput = null;
       }
     },
     onClearContent () {
@@ -132,7 +125,7 @@ export default {
           // add cards id to array
           this.cardIds.push(result.id);
         })
-        .catch(error => this.errorMessage = error.message);
+        .catch(error => this._showMessageToUser(error.message));
     },
     // data fetcher
     _fetchProjectsData (search) {
@@ -144,6 +137,11 @@ export default {
           // no projects available
           if (result.length === 0) {
             this._clearData();
+            return;
+          }
+          // check if github api throw an error
+          if (result.hasOwnProperty("documentation_url")) {
+            this._showMessageToUser(`Error: ${result.message} - ${result.documentation_url}`);
             return;
           }
           // set result to columns object
@@ -158,7 +156,7 @@ export default {
             };
           });
         })
-        .catch(error => this.errorMessage = error.message);
+        .catch(error => this._showMessageToUser(error.message));
     },
     _fetchColumnsData (id) {
       // return if data for id is already available
@@ -169,6 +167,11 @@ export default {
           // no columns available
           if (result.length === 0) {
             this.columnsNonAvailable = true;
+            return;
+          }
+          // check if github api throw an error
+          if (result.hasOwnProperty("documentation_url")) {
+            this._showMessageToUser(`Error: ${result.message} - ${result.documentation_url}`);
             return;
           }
           // set result to columns object
@@ -183,7 +186,7 @@ export default {
             };
           });
         })
-        .catch(error => this.errorMessage = error.message);
+        .catch(error => this._showMessageToUser(error.message));
     },
     _fetchCardsData (id) {
       // clear cards if id is -1 and return
@@ -205,6 +208,11 @@ export default {
             this.cardsNonAvailable = true;
             return;
           }
+          // check if github api throw an error
+          if (result.hasOwnProperty("documentation_url")) {
+            this._showMessageToUser(`Error: ${result.message} - ${result.documentation_url}`);
+            return;
+          }
           // set result to cards object
           this.$set(this.cards, this.selectedColumn, result);
           // change flag value
@@ -212,7 +220,7 @@ export default {
           // set card ids
           this.cardIds = result.map(card => card.id);
         })
-        .catch(error => this.errorMessage = error.message);
+        .catch(error => this._showMessageToUser(error.message));
     },
     // clear all data
     _clearData () {
@@ -230,6 +238,10 @@ export default {
       this.cardsNonAvailable = true;
       this.showNewCardButton = false;
       this.showNewCardModal = false;
+    },
+    // snackbar
+    _showMessageToUser (msg = "Something went wrong! Please check the developer console for more infos!", isError = true) {
+      bus.$emit("show-snackbar", msg, isError);
     }
   }
 }

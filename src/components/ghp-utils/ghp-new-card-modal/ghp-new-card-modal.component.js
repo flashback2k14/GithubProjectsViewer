@@ -7,7 +7,7 @@ export default {
     },
     onClose: Function
   },
-  data() {
+  data () {
     return {
       note: ""
     };
