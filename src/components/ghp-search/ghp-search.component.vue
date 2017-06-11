@@ -62,10 +62,10 @@
     margin-top: 4px;
     margin-right: 20px;
     margin-bottom: 4px;
-    background: #1f2d3d; /*#283593;*/
-    color: #F9FAFC; /*#fff;*/
+    background: #1f2d3d;
+    color: #F9FAFC;
     border: 0;
-    border-bottom: 2px solid #273444; /*#1A237E;*/
+    border-bottom: 2px solid #273444;
     font-size: large;
     outline: none;
   }
@@ -75,7 +75,7 @@
     border-bottom: 1px solid #FF1744;
   }
   .input-style::placeholder {
-    color: #C0CCDA; /*#BDBDBD;*/
+    color: #C0CCDA;
   }
 
   .button-style {
@@ -94,7 +94,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
   }
   .button-style_search {
-    background: #0D47A1; /*#3D5AFE;*/
+    background: #0D47A1;
   }
   .button-style_clear {
     background: #FF1744;

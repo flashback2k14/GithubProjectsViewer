@@ -29,7 +29,7 @@
     top: 0;
     width: calc(100% - 24px);
     padding: 12px 12px 6px 12px;
-    background: #1f2d3d;  /*#283593;*/
+    background: #1f2d3d;
     color: white;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
   }
@@ -47,7 +47,7 @@
     margin-top: 8px;
   }
   .btn-logout {
-    background: #1f2d3d; /*#283593;*/
+    background: #1f2d3d;
     color: white;
     border: 0;
     cursor: pointer;

@@ -36,9 +36,6 @@
     box-shadow: 0 4px 6px 0 rgba(0,0,0,0.6);
     transition: 0.3s;
   }
-  /*.login-form:hover {
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.8);
-  }*/
 
   .input-style {
     width: 90%;
@@ -47,7 +44,7 @@
     background: #273444;
     color: #F9FAFC;
     border: 0;
-    border-bottom: 1px solid #1f2d3d; /*#283593;*/
+    border-bottom: 1px solid #1f2d3d;
     font-size: medium;
     outline: none;
   }

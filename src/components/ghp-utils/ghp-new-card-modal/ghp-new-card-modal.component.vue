@@ -43,7 +43,7 @@
   .modal-header {
     margin-top: 0;
     padding: 12px;
-    background: #1f2d3d; /*#283593;*/
+    background: #1f2d3d;
     color: #FFFFFF;
     font-size: large;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
@@ -63,7 +63,7 @@
     border: 0;
     line-height: 1.5;
     font-size: small;
-    border-bottom: 1px solid #1f2d3d; /*#ddd;*/
+    border-bottom: 1px solid #1f2d3d;
     outline: none;
   }
 
@@ -104,9 +104,7 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
   }
 
-  /*
-    Animation
-  */
+  /* Animation */
   .modal-enter, .modal-leave {
     opacity: 0;
   }

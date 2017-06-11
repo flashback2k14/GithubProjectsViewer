@@ -58,7 +58,7 @@
     display: flex;
     flex: 1 1 auto;
     text-decoration: none;
-    color: #C0CCDA; /*#424242;*/
+    color: #C0CCDA;
     outline: none;
   }
   .anchor-style:hover,
@@ -66,7 +66,7 @@
     text-decoration: underline;
   }
   .anchor-style:visited {
-    color: #C0CCDA; /*#424242;*/
+    color: #C0CCDA;
   }
 
   .icon-style {

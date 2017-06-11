@@ -18,7 +18,7 @@
     visibility: hidden;
   }
   .snackbar-colors_info {
-    background: #333;
+    background: #1f2d3d;
     color: #fff;
   }
   .snackbar-colors_error {

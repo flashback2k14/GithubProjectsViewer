@@ -56,7 +56,7 @@
     color: #E5E9F2;
     font-size: small;
     border: 0 solid white;
-    border-bottom: 1px solid #1f2d3d; /*#424242;*/
+    border-bottom: 1px solid #1f2d3d;
     border-radius: 0;
     cursor: pointer;
     overflow: hidden;

@@ -83,14 +83,14 @@
 
   .non-available-text {
     font-size: large;
-    color: #C0CCDA; /*#424242;*/
+    color: #C0CCDA;
     text-transform: unset;
   }
 
   .non-available-text_mid {
     margin-bottom: 12px;
     font-size: medium;
-    color: #C0CCDA; /*#424242;*/
+    color: #C0CCDA;
   }
 
   .non-available-text_mid:hover {
