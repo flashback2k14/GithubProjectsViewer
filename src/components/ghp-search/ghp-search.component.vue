@@ -130,15 +130,13 @@
     .input-style {
       width: 100%;
       margin-right: 4px;
+      padding-bottom: 4px;
     }
     .button-style {
       width: 36px;
       height: 36px;
       margin-left: 4px;
       margin-right: 4px;
-    }
-    .svg-style {
-      padding-top: 2px;
     }
   }
 </style>

@@ -1,16 +1,15 @@
 <template>
   <div class="modal-mask" @click="close" v-show="show" transition="modal">
     <div class="modal-container" @click.stop>
+      <!-- header -->
       <div class="modal-header">
-        <div>New Card</div>
+        <div>Add a new Card to the Project</div>
       </div>
-
+      <!-- input -->
       <div class="modal-body">
-        <label class="modal-body_label">Note
-          <textarea rows="5" class="modal-body_control" v-model="note"></textarea>
-        </label>
+        <textarea rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
       </div>
-
+      <!-- button -->
       <div class="modal-footer modal-footer_text-right">
         <button class="modal-default-button" @click="save">Save</button>
       </div>
@@ -28,7 +27,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0,0,0,0.4);
     transition: opacity .3s ease;
   }
 
@@ -36,48 +35,54 @@
     width: 350px;
     margin: 15% auto;
     background: #fff;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.6);
     transition: all .3s ease;
   }
 
   .modal-header {
     margin-top: 0;
     padding: 12px;
-    background: #283593;
+    background: #1f2d3d; /*#283593;*/
     color: #FFFFFF;
     font-size: large;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
   }
 
   .modal-body {
-    margin: 6px 0 0 0;
-    padding: 6px 12px;
-  }
-
-  .modal-body_label {
-    display: block;
-    margin-bottom: 1em;
-    font-size: medium;
-  }
-
-  .modal-body_label > .modal-body_control {
-    margin-top: 0.5em;
+    padding: 12px;
+    background: #273444;
   }
 
   .modal-body_control {
     display: block;
     width: 95%;
     padding: 6px;
+    background: #273444;
+    color: #E5E9F2;
+    border: 0;
     line-height: 1.5;
     font-size: small;
-    border: 1px solid #ddd;
+    border-bottom: 1px solid #1f2d3d; /*#ddd;*/
+    outline: none;
+  }
+
+  .modal-body_control:hover,
+  .modal-body_control:focus,
+  .modal-body_control:valid {
+    border-bottom: 1px solid #FF1744;
+  }
+
+  .modal-body_control::placeholder {
+    color: #E5E9F2;
   }
 
   .modal-footer_text-right {
-    margin-top: -8px;
-    padding-right: 12px;
-    padding-bottom: 12px;
+    padding: 0 12px 12px 6px;
+    background: #273444;
     text-align: right;
+    border-bottom-left-radius : 4px;
+    border-bottom-right-radius : 4px;
   }
 
   .modal-default-button {
@@ -89,10 +94,14 @@
     cursor: pointer;
     text-transform: uppercase;
     font-size: small;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
+    transition: 0.3s;
+    outline: none;
   }
 
-  .modal-default-button:hover {
-    background: #D50000;
+  .modal-default-button:hover,
+  .modal-default-button:focus {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
   }
 
   /*
@@ -111,7 +120,7 @@
   /* Smartphones (portrait and landscape) ----------- */
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     .modal-container {
-      margin: 50% auto;
+      margin: 55% auto;
     }
   }
 </style>
