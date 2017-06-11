@@ -59,8 +59,10 @@
     flex: 1 1 auto;
     text-decoration: none;
     color: #C0CCDA; /*#424242;*/
+    outline: none;
   }
-  .anchor-style:hover {
+  .anchor-style:hover,
+  .anchor-style:focus {
     text-decoration: underline;
   }
   .anchor-style:visited {

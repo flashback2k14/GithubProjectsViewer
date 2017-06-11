@@ -69,6 +69,7 @@ footer {
 
 .separator-title {
   padding: 0 6px 0 6px;
+  color: #E5E9F2;
   font-size: large;
   font-weight: bolder;
   cursor: pointer;
@@ -78,5 +79,5 @@ footer {
   width: calc(100% - 12px);
   height: 2px;
   margin: 6px 6px 12px 6px;
-  background: rgba(0,0,0,0.2);
+  background: #1f2d3d; /*rgba(0,0,0,0.2);*/
 }
