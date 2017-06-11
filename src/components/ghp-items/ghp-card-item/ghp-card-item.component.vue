@@ -19,9 +19,9 @@
     <div class="item-container_spacer"></div>
     <div class="date-container">
       <div class="date-spacing">
-        last modifyed: {{ card.updated_at | formatDate }}
+        last modifyed - {{ card.updated_at | formatDate }}
       </div>
-      <div>created: {{ card.created_at | formatDate }}</div>
+      <div>created - {{ card.created_at | formatDate }}</div>
     </div>
   </div>
 </template>
@@ -44,6 +44,7 @@
   }
   .title-style {
     display: flex;
+    color: #E5E9F2;
     padding: 6px;
     font-size: larger;
     font-weight: bolder;
@@ -51,31 +52,34 @@
   .select-style {
     width: 130px;
     padding: 4px 0 4px 4px;
-    background: white url("./../../../../assets/down.svg") no-repeat 90% 50%;
+    background: #273444 url("./../../../../assets/down.svg") no-repeat 90% 50%;
+    color: #E5E9F2;
     font-size: small;
     border: 0 solid white;
-    border-bottom: 1px solid #424242;
+    border-bottom: 1px solid #1f2d3d; /*#424242;*/
     border-radius: 0;
     cursor: pointer;
     overflow: hidden;
     box-shadow: none;
     -webkit-appearance: none;
-  }
-  .select-style:focus {
     outline: none;
+  }
+
+  .select-style:hover,
+  .select-style:focus {
     border-bottom: 1px solid #FF1744;
   }
-  .select-style:hover {
-    border-bottom: 1px solid #FF1744;
-  }
+  
   .note-style {
     width: 100%;
     padding: 6px;
+    color: #C0CCDA;
     word-wrap: break-word;
   }
   .date-container {
     padding: 6px;
-    font-size: smaller;
+    color: #C0CCDA;
+    font-size: small;
   }
   .date-spacing {
     margin-bottom: 5px;

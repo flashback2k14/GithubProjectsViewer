@@ -14,6 +14,7 @@
   .body-style {
     width: 100%;
     padding: 6px;
+    color: #C0CCDA;
     word-wrap: break-word;
   }
 </style>

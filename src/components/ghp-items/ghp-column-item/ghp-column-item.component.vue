@@ -6,9 +6,9 @@
     <div class="item-container_spacer"></div>
     <div class="body-style">
       <div class="date-spacing">
-        last modifyed: {{ column.updated_at | formatDate }}
+        last modifyed - {{ column.updated_at | formatDate }}
       </div>
-      <div>created: {{ column.created_at | formatDate }}</div>
+      <div>created - {{ column.created_at | formatDate }}</div>
     </div>
   </div>
 </template>
@@ -18,6 +18,8 @@
 <style scoped>
   .body-style {
     padding: 6px;
+    color: #C0CCDA;
+    font-size: small;
   }
   .date-spacing {
     margin-bottom: 5px;

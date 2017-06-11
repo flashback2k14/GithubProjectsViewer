@@ -45,17 +45,18 @@ footer {
   padding: 6px 12px 6px 12px;
   overflow-x: auto;
   border: 1px solid  rgba(0,0,0,0.1);
-  border-radius: 4px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.6);
   transition: 0.3s;
 }
 
-.item-container:hover {
+/*.item-container:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
+}*/
 
 .item-container_title {
   padding: 6px;
+  color: #E5E9F2;
   font-size: larger;
   font-weight: bolder;
   cursor: pointer;
@@ -64,7 +65,7 @@ footer {
 .item-container_spacer {
   height: 2px;
   margin: 6px 0 6px 0;
-  background: rgba(0,0,0,0.2);
+  background: #1f2d3d; /*rgba(0,0,0,0.2);*/
 }
 
 .separator-title {
