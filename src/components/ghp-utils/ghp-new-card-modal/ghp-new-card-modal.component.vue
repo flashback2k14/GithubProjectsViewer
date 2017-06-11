@@ -11,7 +11,8 @@
       </div>
       <!-- button -->
       <div class="modal-footer modal-footer_text-right">
-        <button class="modal-default-button" @click="save">Save</button>
+        <button class="modal-default-button modal-default-button_cancel" @click="close">Cancel</button>
+        <button class="modal-default-button modal-default-button_save" @click="save">Save</button>
       </div>
     </div>
   </div>
@@ -87,8 +88,6 @@
 
   .modal-default-button {
     width: 80px;
-    background: #FF1744;
-    color: white;
     border: 0;
     border-radius: 4px;
     cursor: pointer;
@@ -97,6 +96,17 @@
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
     transition: 0.3s;
     outline: none;
+  }
+
+  .modal-default-button_cancel {
+    margin-right: 4px;
+    background: #FF1744;
+    color: white;
+  }
+
+  .modal-default-button_save {
+    background: #0D47A1;
+    color: white;
   }
 
   .modal-default-button:hover,
@@ -119,6 +129,9 @@
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
     .modal-container {
       margin: 55% auto;
+    }
+    .modal-footer_text-right {
+      padding: 6px 12px 12px 0;
     }
   }
 </style>
