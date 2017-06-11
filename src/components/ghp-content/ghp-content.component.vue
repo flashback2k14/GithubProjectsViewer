@@ -12,7 +12,7 @@
       </ghp-project-item>
     </div>
     <div class="non-available-container" v-if="projectsNonAvailable">
-      <div class="non-available-text">No Projects avaiable!</div>
+      <div class="non-available-text">No Projects available!</div>
     </div>
     <!-- projects columns row -->
     <div class="separator-title">Columns</div>
@@ -26,7 +26,7 @@
       </ghp-column-item>
     </div>
     <div class="non-available-container" v-if="columnsNonAvailable">
-      <div class="non-available-text">No Columns avaiable!</div>
+      <div class="non-available-text">No Columns available!</div>
     </div>
     <!-- projects columns cards row -->
     <div class="separator-title">Cards</div>
@@ -42,7 +42,7 @@
       </ghp-card-item>
     </div>
     <div class="non-available-container" v-if="cardsNonAvailable">
-      <div class="non-available-text">No Cards avaiable!</div>
+      <div class="non-available-text">No Cards available!</div>
     </div>
     <!-- spacer -->
     <div class="non-available-spacer" v-if="showNewCardButton"></div>
@@ -83,13 +83,14 @@
 
   .non-available-text {
     font-size: large;
-    color: #424242;
+    color: #C0CCDA;
+    text-transform: unset;
   }
 
   .non-available-text_mid {
     margin-bottom: 12px;
     font-size: medium;
-    color: #424242;
+    color: #C0CCDA;
   }
 
   .non-available-text_mid:hover {

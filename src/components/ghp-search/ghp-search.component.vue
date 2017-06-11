@@ -3,10 +3,12 @@
     <div class="form-column_first">
       <div class="form-column_inputs">
         <input type="text" class="input-style" 
-                v-model="search.username" 
+                v-model="search.username"
+                required
                 placeholder="Enter a Github Username...">
         <input type="text" class="input-style" 
-                v-model="search.repo" 
+                v-model="search.repo"
+                required
                 placeholder="Enter a Github Repo...">
       </div>
     </div>
@@ -57,19 +59,23 @@
 
   .input-style {
     width: 310px;
+    margin-top: 4px;
     margin-right: 20px;
-    margin-bottom: 5px;
-    background: #283593;
-    color: #fff;
+    margin-bottom: 4px;
+    background: #1f2d3d;
+    color: #F9FAFC;
     border: 0;
-    border-bottom: 1px solid #1A237E;
+    border-bottom: 2px solid #273444;
     font-size: large;
+    outline: none;
   }
-  .input-style:hover {
+  .input-style:hover,
+  .input-style:focus,
+  .input-style:valid {
     border-bottom: 1px solid #FF1744;
   }
   .input-style::placeholder {
-    color: #BDBDBD;
+    color: #C0CCDA;
   }
 
   .button-style {
@@ -81,21 +87,22 @@
     cursor: pointer;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.4);
     transition: 0.3s;
+    outline: none;
   }
-  .button-style:hover {
+  .button-style:hover,
+  .button-style:focus {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
   }
   .button-style_search {
-    background: #3D5AFE;
-    color: white;
+    background: #0D47A1;
   }
   .button-style_clear {
     background: #FF1744;
-    color: white;
   }
 
   .svg-style {
-    padding-top: 4px;
+    text-align: center;
+    vertical-align: middle;
   }
 
   /* Smartphones (portrait and landscape) ----------- */
@@ -123,15 +130,13 @@
     .input-style {
       width: 100%;
       margin-right: 4px;
+      padding-bottom: 4px;
     }
     .button-style {
       width: 36px;
       height: 36px;
       margin-left: 4px;
       margin-right: 4px;
-    }
-    .svg-style {
-      padding-top: 2px;
     }
   }
 </style>

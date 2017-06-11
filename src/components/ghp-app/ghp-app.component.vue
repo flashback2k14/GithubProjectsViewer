@@ -58,12 +58,15 @@
     display: flex;
     flex: 1 1 auto;
     text-decoration: none;
+    color: #C0CCDA;
+    outline: none;
   }
-  .anchor-style:hover {
+  .anchor-style:hover,
+  .anchor-style:focus {
     text-decoration: underline;
   }
   .anchor-style:visited {
-    color: #424242;
+    color: #C0CCDA;
   }
 
   .icon-style {

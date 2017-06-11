@@ -3,6 +3,7 @@
 html, body {
   height: 100%;
   overflow: hidden;
+  background: #273444;
 }
 
 body {
@@ -12,7 +13,6 @@ body {
   padding: 0;
   font-family: 'Lato', sans-serif;
   font-size: 0.9em;
-  color: #424242;
   overflow: auto;
 }
 
@@ -32,8 +32,7 @@ footer {
   bottom: 0;
   width: calc(100% - 24px);
   padding: 12px;
-  background: #CFD8DC;
-  color: #424242;
+  background: #3C4858;
 }
 
 .item-container {
@@ -44,17 +43,14 @@ footer {
   padding: 6px 12px 6px 12px;
   overflow-x: auto;
   border: 1px solid  rgba(0,0,0,0.1);
-  border-radius: 4px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 6px;
+  box-shadow: 0 4px 6px 0 rgba(0,0,0,0.6);
   transition: 0.3s;
-}
-
-.item-container:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .item-container_title {
   padding: 6px;
+  color: #E5E9F2;
   font-size: larger;
   font-weight: bolder;
   cursor: pointer;
@@ -63,11 +59,12 @@ footer {
 .item-container_spacer {
   height: 2px;
   margin: 6px 0 6px 0;
-  background: rgba(0,0,0,0.2);
+  background: #1f2d3d;
 }
 
 .separator-title {
   padding: 0 6px 0 6px;
+  color: #E5E9F2;
   font-size: large;
   font-weight: bolder;
   cursor: pointer;
@@ -77,5 +74,29 @@ footer {
   width: calc(100% - 12px);
   height: 2px;
   margin: 6px 6px 12px 6px;
-  background: rgba(0,0,0,0.2);
+  background: #1f2d3d;
+}
+
+/* theming scrollbars */
+/* https://css-tricks.com/custom-scrollbars-in-webkit/ */
+::-webkit-scrollbar {
+  width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: transparent;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: transparent;
 }

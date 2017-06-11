@@ -104,7 +104,6 @@ export default {
       // check if note text is available 
       if (!noteText) {
         this.showNewCardModal = false;
-        console.error("No Text available!");
         return;
       }
       // add new Card to Github
