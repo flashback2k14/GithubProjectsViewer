@@ -30,13 +30,14 @@ export default {
       cards: {},
       cardIds: [],
       cardsNonAvailable: true,
+      selectedCard: "",
       showNewCardButton: false,
       modalType: ["NEWCARD", "UPDATECARD", "DELETECARD"],
       cardModalShow: false,
       cardModalTitle: "",
       cardModalType: "",
       cardModalNote: "",
-      cardModalButtonText: "save"
+      cardModalButtonText: ""
     }
   },
   created () {
@@ -106,9 +107,11 @@ export default {
       }
     },
     onCardItemEdit (card, type) {
+      this.selectedCard = card.id;
       this.openCardModal(type, card.note);
     },
     onCardItemDelete (card, type) {
+      this.selectedCard = card.id;
       alert(type);
     },
     // modal
@@ -130,7 +133,7 @@ export default {
           if (foundColumn) columnName = foundColumn.name;
 
           title = `ADD A NEW CARD TO <br/> project: ${projectName} / column: ${columnName}`;
-
+          this.cardModalButtonText = "save";
           break;
 
         case this.modalType[1]:
@@ -151,17 +154,22 @@ export default {
       // check if note text is available 
       if (!noteText) {
         this.cardModalShow = false;
+        this.selectedCard = "";
         return;
       }
       // check modal type
       switch (type) {
         // new card
         case this.modalType[0]:
-          this._createNewCard(noteText);
+          this._createCard(noteText);
           break;
         // update card
         case this.modalType[1]:
-          alert(noteText, type);
+          this._updateCard(this.selectedCard, noteText);
+          break;
+        // delete card
+        case this.modalType[2]:
+          this._deleteCard(this.selectedCard);
           break;
         // show error message
         default:
@@ -277,19 +285,20 @@ export default {
       this.cards = {};
       this.cardIds = [];
       this.cardsNonAvailable = true;
+      this.selectedCard = "";
       this.showNewCardButton = false;
       this.cardModalShow = false;
       this.cardModalTitle = "";
       this.cardModalType = "";
       this.cardModalNote = "";
-      this.cardModalButtonText = "save";
+      this.cardModalButtonText = "";
     },
     // snackbar
     _showMessageToUser (msg = "Something went wrong! Please check the developer console for more infos!", isError = true) {
       bus.$emit("show-snackbar", msg, isError);
     },
     // modal actions
-    _createNewCard (noteText) {
+    _createCard (noteText) {
       // add new Card to Github
       this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
         .then(result => {
@@ -310,9 +319,29 @@ export default {
         })
         .catch(error => this._showMessageToUser(error.message));
     },
+    _updateCard (cardId, noteText) {
+      this.__fetcher.updateCardById(cardId, noteText)
+        .then(result => {
+          // close modal
+          this.cardModalShow = false;
+          // check if result is empty
+          if (!result) return;
+          // find updated card and change it
+          const foundCardIndex = this.__getItemIndexById(this.cards[this.selectedColumn], result.id);
+          this.cards[this.selectedColumn].splice(foundCardIndex, 1, result);
+        })
+        .catch(error => this._showMessageToUser(error.message));
+    },
+    _deleteCard (cardId) {
+      alert(cardId);
+      this.cardModalShow = false;
+    },
     // helper
     __getItemById (arr, id) {
       return arr.find(item => item.id === id);
+    },
+    __getItemIndexById (arr, id) {
+      return arr.findIndex(item => item.id === id);
     }
   }
 }

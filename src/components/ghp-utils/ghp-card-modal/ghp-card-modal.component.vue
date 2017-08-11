@@ -7,12 +7,12 @@
       </div>
       <!-- input -->
       <div class="modal-body">
-        <textarea rows="4" class="modal-body_control" v-model="modalNote" placeholder="insert note here..." required></textarea>
+        <textarea ref="taNote" rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
       </div>
       <!-- button -->
       <div class="modal-footer modal-footer_text-right">
-        <button class="modal-default-button modal-default-button_cancel" @click="close">Cancel</button>
-        <button class="modal-default-button modal-default-button_save" @click="save">{{ modalSaveButtonText }}</button>
+        <button class="modal-default-button modal-default-button_cancel" @click="close()">Cancel</button>
+        <button class="modal-default-button modal-default-button_save" @click="save()">{{ modalSaveButtonText }}</button>
       </div>
     </div>
   </div>

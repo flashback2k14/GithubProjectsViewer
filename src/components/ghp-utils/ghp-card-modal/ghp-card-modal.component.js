@@ -17,6 +17,11 @@ export default {
     },
     onClose: Function
   },
+  computed: {
+    note () {
+      return this.modalNote;
+    }
+  },
   created () {
     this._addListener();
   },
@@ -29,7 +34,7 @@ export default {
       this.note = "";
     },
     save () {
-      this.onClose(this.note, modalType);
+      this.onClose(this.$refs.taNote.value.trim(), this.modalType);
       this.note = "";
     },
     _closeByKey (e) {
