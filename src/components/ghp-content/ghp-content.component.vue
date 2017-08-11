@@ -49,17 +49,19 @@
     <!-- new cards -->
     <div class="new-card-container" v-if="showNewCardButton">
       <div class="non-available-text_mid non-available-text_pointer"
-        @click="openNewCardModal()">
+        @click="openCardModal(modalType[0])">
         ADD A NEW CARD <strong>+</strong>
       </div>
     </div>
     <!-- modals -->
-    <ghp-new-card-modal
-      :show="showNewCardModal"
-      :modalTitle="newCardModalTitle"
-      :modalType="modalType[0]"
-      :on-close="handleCloseNewCardModel">
-    </ghp-new-card-modal>
+    <ghp-card-modal
+      :show="cardModalShow"
+      :modalTitle="cardModalTitle"
+      :modalType="cardModalType"
+      :modalNote="cardModalNote"
+      :modalSaveButtonText="cardModalButtonText"
+      :on-close="handleCardModelClose">
+    </ghp-card-modal>
   </div>
 </template>
 

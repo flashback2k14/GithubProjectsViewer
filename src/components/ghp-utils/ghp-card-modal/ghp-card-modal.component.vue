@@ -3,22 +3,22 @@
     <div class="modal-container" @click.stop>
       <!-- header -->
       <div class="modal-header">
-        <div>{{ modalTitle }}</div>
+        <div v-html="modalTitle"></div>
       </div>
       <!-- input -->
       <div class="modal-body">
-        <textarea rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
+        <textarea rows="4" class="modal-body_control" v-model="modalNote" placeholder="insert note here..." required></textarea>
       </div>
       <!-- button -->
       <div class="modal-footer modal-footer_text-right">
         <button class="modal-default-button modal-default-button_cancel" @click="close">Cancel</button>
-        <button class="modal-default-button modal-default-button_save" @click="save">Save</button>
+        <button class="modal-default-button modal-default-button_save" @click="save">{{ modalSaveButtonText }}</button>
       </div>
     </div>
   </div>
 </template>
 
-<script src="./ghp-new-card-modal.component.js"></script>
+<script src="./ghp-card-modal.component.js"></script>
 
 <style scoped>
   .modal-mask {

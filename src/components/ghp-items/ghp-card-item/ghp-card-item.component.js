@@ -84,10 +84,10 @@ export default {
     },
 
     onEditCard () {
-      alert(this.card);
+      bus.$emit("card-item-edit", this.card, "UPDATECARD");
     },
     onDeleteCard () {
-      console.log(this.card);
+      bus.$emit("card-item-delete", this.card, "DELETECARD");
     }
   }
 }

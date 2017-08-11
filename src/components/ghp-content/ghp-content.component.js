@@ -4,7 +4,7 @@ import StorageHelper from "./../../helper/storage.helper";
 import GhpProjectItem from "./../ghp-items/ghp-project-item/ghp-project-item.component.vue";
 import GhpColumnItem from "./../ghp-items/ghp-column-item/ghp-column-item.component.vue";
 import GhpCardItem from "./../ghp-items/ghp-card-item/ghp-card-item.component.vue";
-import GhpNewCardModel from "./../ghp-utils/ghp-new-card-modal/ghp-new-card-modal.component.vue";
+import GhpCardModel from "./../ghp-utils/ghp-card-modal/ghp-card-modal.component.vue";
 
 export default {
   name: "ghpContent",
@@ -12,7 +12,7 @@ export default {
     "ghp-project-item": GhpProjectItem,
     "ghp-column-item": GhpColumnItem,
     "ghp-card-item": GhpCardItem,
-    "ghp-new-card-modal": GhpNewCardModel
+    "ghp-card-modal": GhpCardModel
   },
   data () {
     return {
@@ -31,9 +31,12 @@ export default {
       cardIds: [],
       cardsNonAvailable: true,
       showNewCardButton: false,
-      showNewCardModal: false,
-      newCardModalTitle: "Add a new Card to the Project",
-      modalType: ["NEWCARD", "UPDATECARD"]
+      modalType: ["NEWCARD", "UPDATECARD", "DELETECARD"],
+      cardModalShow: false,
+      cardModalTitle: "",
+      cardModalType: "",
+      cardModalNote: "",
+      cardModalButtonText: "save"
     }
   },
   created () {
@@ -44,6 +47,8 @@ export default {
     bus.$on("show-project-columns", this.onShowProjectColumns);
     bus.$on("show-column-cards", this.onShowColumnCards);
     bus.$on("move-card-to-column", this.onMoveCardToColumn);
+    bus.$on("card-item-edit", this.onCardItemEdit);
+    bus.$on("card-item-delete", this.onCardItemDelete);
   },
   destroyed () {
     bus.$off("init-content-fetcher", this.onInitContentFetcher);
@@ -52,6 +57,8 @@ export default {
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
     bus.$off("move-card-to-column", this.onMoveCardToColumn);
+    bus.$off("card-item-edit", this.onCardItemEdit);
+    bus.$off("card-item-delete", this.onCardItemDelete);
   },
   methods: {
     // event handler
@@ -98,14 +105,52 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
-    // modal
-    openNewCardModal () {
-      this.showNewCardModal = true;
+    onCardItemEdit (card, type) {
+      this.openCardModal(type, card.note);
     },
-    handleCloseNewCardModel (noteText, type) {
+    onCardItemDelete (card, type) {
+      alert(type);
+    },
+    // modal
+    openCardModal (type, text) {
+
+      let title = "";
+
+      switch (type) {
+
+        case this.modalType[0]:
+
+          let projectName = "";
+          let columnName = "";
+    
+          const foundProject = this.__getItemById(this.projectItems, this.selectedProject);
+          if (foundProject) projectName = foundProject.name;
+    
+          const foundColumn = this.__getItemById(this.columnItems, this.selectedColumn);
+          if (foundColumn) columnName = foundColumn.name;
+
+          title = `ADD A NEW CARD TO <br/> project: ${projectName} / column: ${columnName}`;
+
+          break;
+
+        case this.modalType[1]:
+          title = "UPDATE CARD";
+          this.cardModalNote = text;
+          this.cardModalButtonText = "update";
+          break;
+
+        default:
+          break;
+      }
+
+      this.cardModalTitle = title;
+      this.cardModalType = type;
+      this.cardModalShow = true;
+    },
+    handleCardModelClose (noteText, type) {
       // check if note text is available 
       if (!noteText) {
-        this.showNewCardModal = false;
+        this.cardModalShow = false;
         return;
       }
       // check modal type
@@ -116,7 +161,7 @@ export default {
           break;
         // update card
         case this.modalType[1]:
-
+          alert(noteText, type);
           break;
         // show error message
         default:
@@ -233,7 +278,11 @@ export default {
       this.cardIds = [];
       this.cardsNonAvailable = true;
       this.showNewCardButton = false;
-      this.showNewCardModal = false;
+      this.cardModalShow = false;
+      this.cardModalTitle = "";
+      this.cardModalType = "";
+      this.cardModalNote = "";
+      this.cardModalButtonText = "save";
     },
     // snackbar
     _showMessageToUser (msg = "Something went wrong! Please check the developer console for more infos!", isError = true) {
@@ -245,7 +294,7 @@ export default {
       this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
         .then(result => {
           // close modal
-          this.showNewCardModal = false;
+          this.cardModalShow = false;
           // check if result is empty
           if (!result) return;
           // check if cards has already data
@@ -260,6 +309,10 @@ export default {
           this.cardIds.push(result.id);
         })
         .catch(error => this._showMessageToUser(error.message));
+    },
+    // helper
+    __getItemById (arr, id) {
+      return arr.find(item => item.id === id);
     }
   }
 }

@@ -1,5 +1,5 @@
 export default {
-  name: "ghpNewCardModal",
+  name: "ghpCardModal",
   props: {
     show: {
       type: Boolean,
@@ -7,12 +7,15 @@ export default {
     },
     modalTitle: String,
     modalType: String,
+    modalNote: {
+      type: String,
+      default: ""
+    },
+    modalSaveButtonText: {
+      type: String,
+      default: "Save"
+    },
     onClose: Function
-  },
-  data () {
-    return {
-      note: ""
-    };
   },
   created () {
     this._addListener();
