@@ -56,11 +56,12 @@
     <!-- modals -->
     <ghp-card-modal
       :show="cardModalShow"
+      :showNoteInput="cardModalShowInput"
       :modalTitle="cardModalTitle"
       :modalType="cardModalType"
       :modalNote="cardModalNote"
       :modalSaveButtonText="cardModalButtonText"
-      :on-close="handleCardModelClose">
+      :on-close="handleCardModalClose">
     </ghp-card-modal>
   </div>
 </template>

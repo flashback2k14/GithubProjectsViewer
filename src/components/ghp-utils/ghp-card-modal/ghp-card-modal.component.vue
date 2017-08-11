@@ -7,7 +7,10 @@
       </div>
       <!-- input -->
       <div class="modal-body">
-        <textarea ref="taNote" rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
+        <textarea ref="taNote" rows="4" class="modal-body_control"
+          v-model="note" v-show="showNoteInput"
+          placeholder="insert note here..." required>
+        </textarea>
       </div>
       <!-- button -->
       <div class="modal-footer modal-footer_text-right">

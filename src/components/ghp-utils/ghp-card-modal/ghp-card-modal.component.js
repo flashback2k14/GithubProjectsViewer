@@ -5,6 +5,10 @@ export default {
       type: Boolean,
       default: false
     },
+    showNoteInput: {
+      type: Boolean,
+      default: false
+    },
     modalTitle: String,
     modalType: String,
     modalNote: {
