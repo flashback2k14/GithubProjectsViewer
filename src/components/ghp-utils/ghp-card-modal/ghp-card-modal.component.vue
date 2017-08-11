@@ -3,22 +3,22 @@
     <div class="modal-container" @click.stop>
       <!-- header -->
       <div class="modal-header">
-        <div>Add a new Card to the Project</div>
+        <div v-html="modalTitle"></div>
       </div>
       <!-- input -->
       <div class="modal-body">
-        <textarea rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
+        <textarea ref="taNote" rows="4" class="modal-body_control" v-model="note" placeholder="insert note here..." required></textarea>
       </div>
       <!-- button -->
       <div class="modal-footer modal-footer_text-right">
-        <button class="modal-default-button modal-default-button_cancel" @click="close">Cancel</button>
-        <button class="modal-default-button modal-default-button_save" @click="save">Save</button>
+        <button class="modal-default-button modal-default-button_cancel" @click="close()">Cancel</button>
+        <button class="modal-default-button modal-default-button_save" @click="save()">{{ modalSaveButtonText }}</button>
       </div>
     </div>
   </div>
 </template>
 
-<script src="./ghp-new-card-modal.component.js"></script>
+<script src="./ghp-card-modal.component.js"></script>
 
 <style scoped>
   .modal-mask {
@@ -57,7 +57,10 @@
 
   .modal-body_control {
     display: block;
+    height: 100px;
+    max-height: 20%;
     width: 95%;
+    max-width: 95%;
     padding: 6px;
     background: #273444;
     color: #E5E9F2;

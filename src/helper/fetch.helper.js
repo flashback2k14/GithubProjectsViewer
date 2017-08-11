@@ -44,6 +44,10 @@ class FetchHelper {
     return `https://api.github.com/projects/columns/${columnId}/cards`;
   }
 
+  _patchUpdatedCardUrl (cardId) {
+    return `https://api.github.com/projects/columns/cards/${cardId}`;
+  }
+
   getProjectsData (username, repo) {
     return new Promise((resolve, reject) => {
       fetch(this._getAllProjectsUrl(username, repo), {
@@ -112,6 +116,21 @@ class FetchHelper {
     return new Promise((resolve, reject) => {
       fetch(this._postAddNewCardToColumnUrl(columnId), {
         method: "POST",
+        headers: this._getHeader(),
+        body: JSON.stringify({
+          "note": noteText
+        })
+      })
+      .then(r => r.json())
+      .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
+
+  updateCardById (cardId, noteText) {
+    return new Promise((resolve, reject) => {
+      fetch(this._patchUpdatedCardUrl(cardId), {
+        method: "PATCH",
         headers: this._getHeader(),
         body: JSON.stringify({
           "note": noteText

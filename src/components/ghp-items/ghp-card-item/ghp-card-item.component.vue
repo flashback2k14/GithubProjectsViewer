@@ -8,7 +8,7 @@
       </div>
       <div class="title-container_button">
         <select class="select-style" v-model="selected">
-          <option v-for="option in moveOptions" v-bind:value="option.id">
+          <option v-for="option in moveOptions" :key="option.name" :value="option.id">
             {{ option.name }}
           </option>
         </select>
@@ -22,6 +22,11 @@
         last modifyed - {{ card.updated_at | formatDate }}
       </div>
       <div>created - {{ card.created_at | formatDate }}</div>
+    </div>
+    <div class="item-container_spacer"></div>
+    <div class="action-container">
+      <div class="action-style action-spacing" @click="onEditCard()">EDIT</div>
+      <div class="action-style" @click="onDeleteCard()">DELETE</div>
     </div>
   </div>
 </template>
@@ -76,6 +81,7 @@
     color: #C0CCDA;
     word-wrap: break-word;
   }
+
   .date-container {
     padding: 6px;
     color: #C0CCDA;
@@ -83,5 +89,24 @@
   }
   .date-spacing {
     margin-bottom: 5px;
+  }
+
+  .action-container {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+  }
+  .action-style {
+    padding: 6px 0 6px 0;
+    color: #E5E9F2;
+    cursor: pointer;
+  }
+  .action-style:hover {
+    text-decoration: underline;
+    text-decoration-color: #FF1744;
+    -moz-text-decoration-color: #FF1744;
+  }
+  .action-spacing {
+    padding-right: 6px;
   }
 </style>

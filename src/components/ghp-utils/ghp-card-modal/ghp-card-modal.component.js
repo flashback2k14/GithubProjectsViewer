@@ -1,16 +1,26 @@
 export default {
-  name: "ghpNewCardModal",
+  name: "ghpCardModal",
   props: {
     show: {
       type: Boolean,
       default: false
     },
+    modalTitle: String,
+    modalType: String,
+    modalNote: {
+      type: String,
+      default: ""
+    },
+    modalSaveButtonText: {
+      type: String,
+      default: "Save"
+    },
     onClose: Function
   },
-  data () {
-    return {
-      note: ""
-    };
+  computed: {
+    note () {
+      return this.modalNote;
+    }
   },
   created () {
     this._addListener();
@@ -20,11 +30,12 @@ export default {
   },
   methods: {
     close () {
-      this.onClose(this.note);
+      this.onClose();
       this.note = "";
     },
     save () {
-      this.close();
+      this.onClose(this.$refs.taNote.value.trim(), this.modalType);
+      this.note = "";
     },
     _closeByKey (e) {
       if (this.show && e.keyCode === 27) {

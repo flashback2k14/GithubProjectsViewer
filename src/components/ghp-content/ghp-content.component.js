@@ -4,7 +4,7 @@ import StorageHelper from "./../../helper/storage.helper";
 import GhpProjectItem from "./../ghp-items/ghp-project-item/ghp-project-item.component.vue";
 import GhpColumnItem from "./../ghp-items/ghp-column-item/ghp-column-item.component.vue";
 import GhpCardItem from "./../ghp-items/ghp-card-item/ghp-card-item.component.vue";
-import GhpNewCardModel from "./../ghp-utils/ghp-new-card-modal/ghp-new-card-modal.component.vue";
+import GhpCardModel from "./../ghp-utils/ghp-card-modal/ghp-card-modal.component.vue";
 
 export default {
   name: "ghpContent",
@@ -12,7 +12,7 @@ export default {
     "ghp-project-item": GhpProjectItem,
     "ghp-column-item": GhpColumnItem,
     "ghp-card-item": GhpCardItem,
-    "ghp-new-card-modal": GhpNewCardModel
+    "ghp-card-modal": GhpCardModel
   },
   data () {
     return {
@@ -30,8 +30,14 @@ export default {
       cards: {},
       cardIds: [],
       cardsNonAvailable: true,
+      selectedCard: "",
       showNewCardButton: false,
-      showNewCardModal: false
+      modalType: ["NEWCARD", "UPDATECARD", "DELETECARD"],
+      cardModalShow: false,
+      cardModalTitle: "",
+      cardModalType: "",
+      cardModalNote: "",
+      cardModalButtonText: ""
     }
   },
   created () {
@@ -42,6 +48,8 @@ export default {
     bus.$on("show-project-columns", this.onShowProjectColumns);
     bus.$on("show-column-cards", this.onShowColumnCards);
     bus.$on("move-card-to-column", this.onMoveCardToColumn);
+    bus.$on("card-item-edit", this.onCardItemEdit);
+    bus.$on("card-item-delete", this.onCardItemDelete);
   },
   destroyed () {
     bus.$off("init-content-fetcher", this.onInitContentFetcher);
@@ -50,6 +58,8 @@ export default {
     bus.$off("show-project-columns", this.onShowProjectColumns);
     bus.$off("show-column-cards", this.onShowColumnCards);
     bus.$off("move-card-to-column", this.onMoveCardToColumn);
+    bus.$off("card-item-edit", this.onCardItemEdit);
+    bus.$off("card-item-delete", this.onCardItemDelete);
   },
   methods: {
     // event handler
@@ -96,35 +106,75 @@ export default {
         this._fetchCardsData(columnId);
       }
     },
-    // modal
-    openNewCardModal () {
-      this.showNewCardModal = true;
+    onCardItemEdit (card, type) {
+      this.selectedCard = card.id;
+      this.openCardModal(type, card.note);
     },
-    handleCloseNewCardModel (noteText) {
+    onCardItemDelete (card, type) {
+      this.selectedCard = card.id;
+      alert(type);
+    },
+    // modal
+    openCardModal (type, text) {
+
+      let title = "";
+
+      switch (type) {
+
+        case this.modalType[0]:
+
+          let projectName = "";
+          let columnName = "";
+    
+          const foundProject = this.__getItemById(this.projectItems, this.selectedProject);
+          if (foundProject) projectName = foundProject.name;
+    
+          const foundColumn = this.__getItemById(this.columnItems, this.selectedColumn);
+          if (foundColumn) columnName = foundColumn.name;
+
+          title = `ADD A NEW CARD TO <br/> project: ${projectName} / column: ${columnName}`;
+          this.cardModalButtonText = "save";
+          break;
+
+        case this.modalType[1]:
+          title = "UPDATE CARD";
+          this.cardModalNote = text;
+          this.cardModalButtonText = "update";
+          break;
+
+        default:
+          break;
+      }
+
+      this.cardModalTitle = title;
+      this.cardModalType = type;
+      this.cardModalShow = true;
+    },
+    handleCardModelClose (noteText, type) {
       // check if note text is available 
       if (!noteText) {
-        this.showNewCardModal = false;
+        this.cardModalShow = false;
+        this.selectedCard = "";
         return;
       }
-      // add new Card to Github
-      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
-        .then(result => {
-          // close modal
-          this.showNewCardModal = false;
-          // check if result is empty
-          if (!result) return;
-          // check if cards has already data
-          //  YES = push result into cards array
-          //  NOPE = init cards object
-          if (this.cards) {
-            this.cards[this.selectedColumn].push(result); 
-          } else {
-            this.$set(this.cards, this.selectedColumn, result);
-          }
-          // add cards id to array
-          this.cardIds.push(result.id);
-        })
-        .catch(error => this._showMessageToUser(error.message));
+      // check modal type
+      switch (type) {
+        // new card
+        case this.modalType[0]:
+          this._createCard(noteText);
+          break;
+        // update card
+        case this.modalType[1]:
+          this._updateCard(this.selectedCard, noteText);
+          break;
+        // delete card
+        case this.modalType[2]:
+          this._deleteCard(this.selectedCard);
+          break;
+        // show error message
+        default:
+          this._showMessageToUser("Unknown Type: " + type, true);
+      }
     },
     // data fetcher
     _fetchProjectsData (search) {
@@ -235,12 +285,63 @@ export default {
       this.cards = {};
       this.cardIds = [];
       this.cardsNonAvailable = true;
+      this.selectedCard = "";
       this.showNewCardButton = false;
-      this.showNewCardModal = false;
+      this.cardModalShow = false;
+      this.cardModalTitle = "";
+      this.cardModalType = "";
+      this.cardModalNote = "";
+      this.cardModalButtonText = "";
     },
     // snackbar
     _showMessageToUser (msg = "Something went wrong! Please check the developer console for more infos!", isError = true) {
       bus.$emit("show-snackbar", msg, isError);
+    },
+    // modal actions
+    _createCard (noteText) {
+      // add new Card to Github
+      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
+        .then(result => {
+          // close modal
+          this.cardModalShow = false;
+          // check if result is empty
+          if (!result) return;
+          // check if cards has already data
+          //  YES = push result into cards array
+          //  NOPE = init cards object
+          if (this.cards) {
+            this.cards[this.selectedColumn].push(result); 
+          } else {
+            this.$set(this.cards, this.selectedColumn, result);
+          }
+          // add cards id to array
+          this.cardIds.push(result.id);
+        })
+        .catch(error => this._showMessageToUser(error.message));
+    },
+    _updateCard (cardId, noteText) {
+      this.__fetcher.updateCardById(cardId, noteText)
+        .then(result => {
+          // close modal
+          this.cardModalShow = false;
+          // check if result is empty
+          if (!result) return;
+          // find updated card and change it
+          const foundCardIndex = this.__getItemIndexById(this.cards[this.selectedColumn], result.id);
+          this.cards[this.selectedColumn].splice(foundCardIndex, 1, result);
+        })
+        .catch(error => this._showMessageToUser(error.message));
+    },
+    _deleteCard (cardId) {
+      alert(cardId);
+      this.cardModalShow = false;
+    },
+    // helper
+    __getItemById (arr, id) {
+      return arr.find(item => item.id === id);
+    },
+    __getItemIndexById (arr, id) {
+      return arr.findIndex(item => item.id === id);
     }
   }
 }
