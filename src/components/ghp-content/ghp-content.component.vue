@@ -61,7 +61,7 @@
       :modalType="cardModalType"
       :modalNote="cardModalNote"
       :modalSaveButtonText="cardModalButtonText"
-      :on-close="handleCardModelClose">
+      :on-close="handleCardModalClose">
     </ghp-card-modal>
   </div>
 </template>

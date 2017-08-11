@@ -157,7 +157,7 @@ export default {
       this.cardModalType = type;
       this.cardModalShow = true;
     },
-    handleCardModelClose (noteText, type) {
+    handleCardModalClose (noteText, type) {
       // check modal type
       switch (type) {
         // new card
