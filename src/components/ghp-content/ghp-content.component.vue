@@ -56,6 +56,7 @@
     <!-- modals -->
     <ghp-card-modal
       :show="cardModalShow"
+      :showNoteInput="cardModalShowInput"
       :modalTitle="cardModalTitle"
       :modalType="cardModalType"
       :modalNote="cardModalNote"

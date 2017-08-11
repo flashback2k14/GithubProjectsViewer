@@ -48,6 +48,10 @@ class FetchHelper {
     return `https://api.github.com/projects/columns/cards/${cardId}`;
   }
 
+  _deleteCardUrl (cardId) {
+    return `https://api.github.com/projects/columns/cards/${cardId}`;
+  }
+
   getProjectsData (username, repo) {
     return new Promise((resolve, reject) => {
       fetch(this._getAllProjectsUrl(username, repo), {
@@ -138,6 +142,17 @@ class FetchHelper {
       })
       .then(r => r.json())
       .then(data => resolve(data))
+      .catch(error => reject(error));
+    });
+  }
+
+  deleteCardById (cardId) {
+    return new Promise((resolve, reject) => {
+      fetch(this._deleteCardUrl(cardId), {
+        method: "DELETE",
+        headers: this._getHeader()
+      })
+      .then(() => resolve())
       .catch(error => reject(error));
     });
   }

@@ -34,6 +34,7 @@ export default {
       showNewCardButton: false,
       modalType: ["NEWCARD", "UPDATECARD", "DELETECARD"],
       cardModalShow: false,
+      cardModalShowInput: true,
       cardModalTitle: "",
       cardModalType: "",
       cardModalNote: "",
@@ -112,59 +113,73 @@ export default {
     },
     onCardItemDelete (card, type) {
       this.selectedCard = card.id;
-      alert(type);
+      this.openCardModal(type);
     },
     // modal
     openCardModal (type, text) {
-
+      // init title var
       let title = "";
-
+      // check modal type
       switch (type) {
-
+        // add new card
         case this.modalType[0]:
-
+          // init name vars
           let projectName = "";
           let columnName = "";
-    
+          // find project
           const foundProject = this.__getItemById(this.projectItems, this.selectedProject);
           if (foundProject) projectName = foundProject.name;
-    
+          // find column
           const foundColumn = this.__getItemById(this.columnItems, this.selectedColumn);
           if (foundColumn) columnName = foundColumn.name;
-
+          // set modal props
           title = `ADD A NEW CARD TO <br/> project: ${projectName} / column: ${columnName}`;
           this.cardModalButtonText = "save";
           break;
-
+        // update a card
         case this.modalType[1]:
           title = "UPDATE CARD";
           this.cardModalNote = text;
           this.cardModalButtonText = "update";
           break;
-
+        // delete a card
+        case this.modalType[2]:
+          title = "DELETE CARD";
+          this.cardModalShowInput = false;
+          this.cardModalButtonText = "delete";
+          break;
+        // nothing to do here
         default:
           break;
       }
-
+      // set modal props
       this.cardModalTitle = title;
       this.cardModalType = type;
       this.cardModalShow = true;
     },
     handleCardModelClose (noteText, type) {
-      // check if note text is available 
-      if (!noteText) {
-        this.cardModalShow = false;
-        this.selectedCard = "";
-        return;
-      }
       // check modal type
       switch (type) {
         // new card
         case this.modalType[0]:
+          // check if note text is available 
+          if (!noteText) {
+            this.cardModalShow = false;
+            this.selectedCard = "";
+            return;
+          }
+          // add a new card
           this._createCard(noteText);
           break;
         // update card
         case this.modalType[1]:
+          // check if note text is available 
+          if (!noteText) {
+            this.cardModalShow = false;
+            this.selectedCard = "";
+            return;
+          }
+          // update a card
           this._updateCard(this.selectedCard, noteText);
           break;
         // delete card
@@ -288,6 +303,7 @@ export default {
       this.selectedCard = "";
       this.showNewCardButton = false;
       this.cardModalShow = false;
+      this.cardModalShowInput = true;
       this.cardModalTitle = "";
       this.cardModalType = "";
       this.cardModalNote = "";
@@ -306,6 +322,11 @@ export default {
           this.cardModalShow = false;
           // check if result is empty
           if (!result) return;
+          // check if github api throw an error
+          if (result.hasOwnProperty("documentation_url")) {
+            this._showMessageToUser(`Error: ${result.message} - ${result.documentation_url}`);
+            return;
+          }
           // check if cards has already data
           //  YES = push result into cards array
           //  NOPE = init cards object
@@ -326,15 +347,33 @@ export default {
           this.cardModalShow = false;
           // check if result is empty
           if (!result) return;
+          // check if github api throw an error
+          if (result.hasOwnProperty("documentation_url")) {
+            this._showMessageToUser(`Error: ${result.message} - ${result.documentation_url}`);
+            return;
+          }
           // find updated card and change it
           const foundCardIndex = this.__getItemIndexById(this.cards[this.selectedColumn], result.id);
           this.cards[this.selectedColumn].splice(foundCardIndex, 1, result);
+          // reset selected card id
+          this.selectedCard = "";
         })
         .catch(error => this._showMessageToUser(error.message));
     },
     _deleteCard (cardId) {
-      alert(cardId);
-      this.cardModalShow = false;
+      this.__fetcher.deleteCardById(cardId)
+        .then(result => {
+          // close modal
+          this.cardModalShow = false;
+          // find deleted card and remove it
+          const foundCardIndex = this.__getItemIndexById(this.cards[this.selectedColumn], cardId);
+          this.cards[this.selectedColumn].splice(foundCardIndex, 1);
+          // reset selected card id
+          this.selectedCard = "";
+        })
+        .catch(error => {
+          this._showMessageToUser(error.message);
+        });
     },
     // helper
     __getItemById (arr, id) {
