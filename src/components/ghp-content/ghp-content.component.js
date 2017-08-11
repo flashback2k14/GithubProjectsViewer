@@ -31,7 +31,9 @@ export default {
       cardIds: [],
       cardsNonAvailable: true,
       showNewCardButton: false,
-      showNewCardModal: false
+      showNewCardModal: false,
+      newCardModalTitle: "Add a new Card to the Project",
+      modalType: ["NEWCARD", "UPDATECARD"]
     }
   },
   created () {
@@ -100,31 +102,26 @@ export default {
     openNewCardModal () {
       this.showNewCardModal = true;
     },
-    handleCloseNewCardModel (noteText) {
+    handleCloseNewCardModel (noteText, type) {
       // check if note text is available 
       if (!noteText) {
         this.showNewCardModal = false;
         return;
       }
-      // add new Card to Github
-      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
-        .then(result => {
-          // close modal
-          this.showNewCardModal = false;
-          // check if result is empty
-          if (!result) return;
-          // check if cards has already data
-          //  YES = push result into cards array
-          //  NOPE = init cards object
-          if (this.cards) {
-            this.cards[this.selectedColumn].push(result); 
-          } else {
-            this.$set(this.cards, this.selectedColumn, result);
-          }
-          // add cards id to array
-          this.cardIds.push(result.id);
-        })
-        .catch(error => this._showMessageToUser(error.message));
+      // check modal type
+      switch (type) {
+        // new card
+        case this.modalType[0]:
+          this._createNewCard(noteText);
+          break;
+        // update card
+        case this.modalType[1]:
+
+          break;
+        // show error message
+        default:
+          this._showMessageToUser("Unknown Type: " + type, true);
+      }
     },
     // data fetcher
     _fetchProjectsData (search) {
@@ -241,6 +238,28 @@ export default {
     // snackbar
     _showMessageToUser (msg = "Something went wrong! Please check the developer console for more infos!", isError = true) {
       bus.$emit("show-snackbar", msg, isError);
+    },
+    // modal actions
+    _createNewCard (noteText) {
+      // add new Card to Github
+      this.__fetcher.addNewCardToColumn(this.selectedColumn, noteText)
+        .then(result => {
+          // close modal
+          this.showNewCardModal = false;
+          // check if result is empty
+          if (!result) return;
+          // check if cards has already data
+          //  YES = push result into cards array
+          //  NOPE = init cards object
+          if (this.cards) {
+            this.cards[this.selectedColumn].push(result); 
+          } else {
+            this.$set(this.cards, this.selectedColumn, result);
+          }
+          // add cards id to array
+          this.cardIds.push(result.id);
+        })
+        .catch(error => this._showMessageToUser(error.message));
     }
   }
 }

@@ -5,6 +5,8 @@ export default {
       type: Boolean,
       default: false
     },
+    modalTitle: String,
+    modalType: String,
     onClose: Function
   },
   data () {
@@ -20,11 +22,12 @@ export default {
   },
   methods: {
     close () {
-      this.onClose(this.note);
+      this.onClose();
       this.note = "";
     },
     save () {
-      this.close();
+      this.onClose(this.note, modalType);
+      this.note = "";
     },
     _closeByKey (e) {
       if (this.show && e.keyCode === 27) {

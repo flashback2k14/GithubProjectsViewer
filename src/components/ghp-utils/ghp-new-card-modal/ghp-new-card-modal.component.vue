@@ -3,7 +3,7 @@
     <div class="modal-container" @click.stop>
       <!-- header -->
       <div class="modal-header">
-        <div>Add a new Card to the Project</div>
+        <div>{{ modalTitle }}</div>
       </div>
       <!-- input -->
       <div class="modal-body">
@@ -57,7 +57,10 @@
 
   .modal-body_control {
     display: block;
+    height: 100px;
+    max-height: 20%;
     width: 95%;
+    max-width: 95%;
     padding: 6px;
     background: #273444;
     color: #E5E9F2;

@@ -56,6 +56,8 @@
     <!-- modals -->
     <ghp-new-card-modal
       :show="showNewCardModal"
+      :modalTitle="newCardModalTitle"
+      :modalType="modalType[0]"
       :on-close="handleCloseNewCardModel">
     </ghp-new-card-modal>
   </div>

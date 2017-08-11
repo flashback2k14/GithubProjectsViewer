@@ -81,6 +81,13 @@ export default {
           bus.$emit("move-card-to-column", columnId);
         })
         .catch(error => console.error(error));
+    },
+
+    onEditCard () {
+      alert(this.card);
+    },
+    onDeleteCard () {
+      console.log(this.card);
     }
   }
 }
