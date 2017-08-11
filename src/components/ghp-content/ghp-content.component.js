@@ -186,9 +186,9 @@ export default {
         case this.modalType[2]:
           this._deleteCard(this.selectedCard);
           break;
-        // show error message
+        // default close modal
         default:
-          this._showMessageToUser("Unknown Type: " + type, true);
+          this.cardModalShow = false;
       }
     },
     // data fetcher
@@ -371,9 +371,7 @@ export default {
           // reset selected card id
           this.selectedCard = "";
         })
-        .catch(error => {
-          this._showMessageToUser(error.message);
-        });
+        .catch(error => this._showMessageToUser(error.message));
     },
     // helper
     __getItemById (arr, id) {
