@@ -2,3 +2,6 @@ build/
 node_modules/
 prod/
 npm-debug.log
+desktop/src/
+desktop/node_modules/
+desktop/release
