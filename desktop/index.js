@@ -18,7 +18,7 @@ const createWindow = () => {
     icon: path.join(__dirname, "assets/icons/png/128x128.png")
   });
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/src/index.html`);// Emitted when the window is closed.
+  mainWindow.loadURL(`file://${__dirname}/src/index.html`);
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
@@ -31,16 +31,7 @@ const createWindow = () => {
 // init tray
 const traySetup = () => {
   // init tray
-  switch (process.platform) {
-    case "darwin":
-      tray = new Tray(path.join(__dirname, 'assets/icons/png/16x16.png'));
-      break;
-    case "win32":
-      tray = new Tray(path.join(__dirname, 'assets/icons/png/32x32.png'));
-      break;
-    default:
-      tray = new Tray(path.join(__dirname, 'assets/icons/png/16x16.png'));
-  }
+  tray = new Tray(path.join(__dirname, 'assets/icons/tray/tray_32x32.png'));
   // init context menu
   const contextMenu = Menu.buildFromTemplate([
     {
