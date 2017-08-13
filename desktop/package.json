@@ -17,10 +17,17 @@
     "create-mac-installer": "electron-installer-dmg ./release/ghp-darwin-x64/ghp.app/ install-ghp --out=release --overwrite --icon=assets/mac/icon.png.icns",
     "create-win-installer": "node installer/createWinInstaller.js"
   },
+  "dependencies": {
+    "electron-compile": "~6.4.1"
+  },
   "devDependencies": {
+    "babel-plugin-transform-async-to-generator": "~6.24.1",
+    "babel-preset-env": "~1.6.0",
+    "babel-preset-react": "~6.24.1",
     "electron": "~1.7.5",
     "electron-installer-dmg": "~0.2.1",
     "electron-packager": "~8.7.2",
+    "electron-prebuilt-compile": "~1.7.5",
     "electron-winstaller": "~2.6.3"
   }
 }
