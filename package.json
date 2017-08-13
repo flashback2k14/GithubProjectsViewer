@@ -13,9 +13,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "clean": "rm -rf build/ prod/",
     "clean:a": "rm -rf build/ prod/ node_modules",
+    "clean:b": "rm -rf build/",
     "copy:d": "cp -rv build prod/build && cp -rv assets prod/assets",
     "copy:f": "cp index.html prod && cp style.css prod && cp manifest.json prod",
-    "prod": "npm run build && mkdir prod && npm run copy:d && npm run copy:f",
+    "prod": "npm run clean && npm run build && mkdir -p prod && npm run copy:d && npm run copy:f && npm run clean:b",
     "deploy": "npm run clean && npm run prod && cd prod && surge --domain https://github-project-viewer.surge.sh"
   },
   "dependencies": {
