@@ -1,7 +1,7 @@
 {
   "name": "github-projects-viewer",
   "description": "View Github Projects built with Vue.js 2",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "license": "MIT",
   "author": "flashback2k14",
   "repository": {
@@ -16,7 +16,8 @@
     "clean:b": "rm -rf build/",
     "copy:d": "cp -rv build prod/build && cp -rv assets prod/assets",
     "copy:f": "cp index.html prod && cp style.css prod && cp manifest.json prod",
-    "prod": "npm run clean && npm run build && mkdir -p prod && npm run copy:d && npm run copy:f && npm run clean:b",
+    "copy:p": "cp -rv prod desktop/src",
+    "prod": "npm run clean && npm run build && mkdir -p prod && npm run copy:d && npm run copy:f && npm run clean:b && npm run copy:p",
     "deploy": "npm run clean && npm run prod && cd prod && surge --domain https://github-project-viewer.surge.sh"
   },
   "dependencies": {

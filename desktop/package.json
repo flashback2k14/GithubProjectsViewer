@@ -1,0 +1,26 @@
+{
+  "name": "github-projects-viewer-desktop",
+  "description": "View Github Projects built with Vue.js 2 - Desktop",
+  "version": "1.6.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "flashback2k14",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/flashback2k14/GithubProjectsViewer"
+  },
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --name=ghp --platform=darwin --arch=x64 --icon=assets/mac/icon.png.icns --prune=true --out=release",
+    "package-win": "electron-packager . --overwrite --name=ghp --asar=true --platform=win32 --arch=ia32 --icon=assets/win/icon.png.ico --prune=true --out=release --version-string.ProductName=GithubProjectsViewer",
+    "package-linux": "electron-packager . --overwrite --name=ghp --platform=linux --arch=x64 --icon=assets/png/512x512.png --prune=true --out=release",
+    "create-mac-installer": "electron-installer-dmg ./release/ghp-darwin-x64/ghp.app/ install-ghp --out=release --overwrite --icon=assets/mac/icon.png.icns",
+    "create-win-installer": "node installer/createWinInstaller.js"
+  },
+  "devDependencies": {
+    "electron": "~1.7.5",
+    "electron-installer-dmg": "~0.2.1",
+    "electron-packager": "~8.7.2",
+    "electron-winstaller": "~2.6.3"
+  }
+}
