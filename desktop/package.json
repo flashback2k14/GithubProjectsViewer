@@ -11,18 +11,23 @@
   },
   "scripts": {
     "start": "electron .",
-    "clean": "rm -rf release/",
-    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.png.icns --prune=true --out=release",
-    "create-mac-installer": "electron-installer-dmg --overwrite --icon=assets/icons/mac/icon.png.icns --out=release ./release/github-projects-viewer-desktop-darwin-x64/github-projects-viewer-desktop.app/ install-ghp-desktop",
-    "build-mac": "npm run clean && npm run package-mac && npm run create-mac-installer",
-    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.png.ico --prune=true --out=release --asar=true --version-string.ProductName=GithubProjectsViewer",
-    "create-win-installer": "node installer/createWinInstaller.js",
-    "build-win": "npm run package-win && npm run create-win-installer",
-    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/512x512.png --prune=true --out=release"
+    "debian-clean": "rm -rf release/debian",
+    "debian-package": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/512x512.png --prune=true --out=release/debian",
+    "debian-create-installer": "electron-installer-debian --src=release/debian/ --dest=release/debian/ --arch=amd64",
+    "debian-build": "npm run debian-clean && npm run debian-package && npm run debian-create-installer",
+    "mac-clean": "rm -rf release/mac/",
+    "mac-package": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.png.icns --prune=true --out=release/mac",
+    "mac-create-installer": "electron-installer-dmg --overwrite --icon=assets/icons/mac/icon.png.icns --out=release/mac ./release/mac/github-projects-viewer-desktop-darwin-x64/github-projects-viewer-desktop.app/ install-ghp-desktop",
+    "mac-build": "npm run mac-clean && npm run mac-package && npm run mac-create-installer",
+    "win-clean": "rm -rf release/win/",
+    "win-package": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.png.ico --prune=true --out=release/win --asar=true --version-string.ProductName=GithubProjectsViewer",
+    "win-create-installer": "node installer/createWinInstaller.js",
+    "win-build": "npm run win-clean && npm run win-package && npm run win-create-installer"
   },
   "devDependencies": {
     "electron": "~1.7.5",
     "electron-installer-dmg": "~0.2.1",
+    "electron-installer-debian": "~0.5.2",
     "electron-packager": "~8.7.2",
     "electron-winstaller": "~2.6.3"
   }

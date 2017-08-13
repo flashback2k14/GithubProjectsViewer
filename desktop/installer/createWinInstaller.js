@@ -11,7 +11,7 @@ getInstallerConfig()
 function getInstallerConfig () {
   console.log('creating windows installer');
   const rootPath = path.join('./');
-  const outPath = path.join(rootPath, 'release');
+  const outPath = path.join(rootPath, 'release/win');
 
   return Promise.resolve({
     appDirectory: path.join(outPath, 'ghp-win32-ia32/'),
