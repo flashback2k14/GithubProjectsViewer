@@ -1,5 +1,7 @@
-import { app, dialog, BrowserWindow, Tray, Menu } from 'electron';
-import path from 'path';
+const electron = require("electron");
+const { app, dialog, BrowserWindow, Tray, Menu } = electron;
+const path = require("path");
+const setupSquirrelEvents = require("./events/setupSquirrelEvents");
 
 // init vars
 let mainWindow = null;
@@ -7,7 +9,7 @@ let willQuit = false;
 let tray = null;
 
 // init mainWindow
-const createWindow = async () => {
+const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
     width: 1024,
@@ -16,23 +18,18 @@ const createWindow = async () => {
     icon: path.join(__dirname, "assets/icons/png/128x128.png")
   });
   // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/src/index.html`);
+  mainWindow.loadURL(`file://${__dirname}/src/index.html`);// Emitted when the window is closed.
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
     // Dereference the window object, usually you would store windows
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
-    if (willQuit) {
-      mainWindow = null;
-    } else {
-      e.preventDefault();
-      mainWindow.hide();
-    }
+    mainWindow = null;
   });
 };
 
 // init tray
-const traySetup = async () => {
+const traySetup = () => {
   // init tray
   switch (process.platform) {
     case "darwin":
@@ -47,10 +44,28 @@ const traySetup = async () => {
   // init context menu
   const contextMenu = Menu.buildFromTemplate([
     {
-      label: 'Open GithubProjectsViewer',
+      label: 'Open',
       click: () => {
-        mainWindow.show();
+        if (mainWindow === null) {
+          createWindow();
+        } else {
+          mainWindow.show();
+        }
       }
+    }, {
+      label: 'Hide',
+      click: () => {
+        if (mainWindow !== null) {
+          mainWindow.hide();
+        }
+      }
+    }, {
+      label: 'Quit',
+      click: () => {
+        app.quit();
+      }
+    }, {
+      type: 'separator'
     }, {
       label: 'About',
       click: () => {
@@ -64,13 +79,6 @@ const traySetup = async () => {
           }
         );
       }
-    }, {
-      type: 'separator'
-    }, {
-      label: 'Quit GithubProjectsViewer',
-      click: () => {
-        app.quit();
-      }
     }
   ]);
   // set context menu to tray
@@ -78,14 +86,23 @@ const traySetup = async () => {
   tray.setContextMenu(contextMenu);
   // init click listener
   tray.on('click', () => {
-    mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show()
+    if (mainWindow === null) {
+      createWindow();
+    } else {
+      mainWindow.isVisible() ? mainWindow.hide() : mainWindow.show();
+    }
   });
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', async () => {
+app.on('ready', () => {
+  // Squirrel events have to be handled before anything else
+  if (setupSquirrelEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+  }
   createWindow();
   traySetup();
 });
@@ -105,7 +122,4 @@ app.on('activate', () => {
   if (mainWindow === null) {
     createWindow();
   }
-  mainWindow.show();
 });
-
-app.on('before-quit', () => willQuit = true);

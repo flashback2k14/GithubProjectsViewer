@@ -11,23 +11,19 @@
   },
   "scripts": {
     "start": "electron .",
-    "package-mac": "electron-packager . --overwrite --name=ghp --platform=darwin --arch=x64 --icon=assets/mac/icon.png.icns --prune=true --out=release",
-    "package-win": "electron-packager . --overwrite --name=ghp --asar=true --platform=win32 --arch=ia32 --icon=assets/win/icon.png.ico --prune=true --out=release --version-string.ProductName=GithubProjectsViewer",
-    "package-linux": "electron-packager . --overwrite --name=ghp --platform=linux --arch=x64 --icon=assets/png/512x512.png --prune=true --out=release",
-    "create-mac-installer": "electron-installer-dmg ./release/ghp-darwin-x64/ghp.app/ install-ghp --out=release --overwrite --icon=assets/mac/icon.png.icns",
-    "create-win-installer": "node installer/createWinInstaller.js"
-  },
-  "dependencies": {
-    "electron-compile": "~6.4.1"
+    "clean": "rm -rf release/",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.png.icns --prune=true --out=release",
+    "create-mac-installer": "electron-installer-dmg --overwrite --icon=assets/icons/mac/icon.png.icns --out=release ./release/github-projects-viewer-desktop-darwin-x64/github-projects-viewer-desktop.app/ install-ghp-desktop",
+    "build-mac": "npm run clean && npm run package-mac && npm run create-mac-installer",
+    "package-win": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.png.ico --prune=true --out=release --asar=true --version-string.ProductName=GithubProjectsViewer",
+    "create-win-installer": "node installer/createWinInstaller.js",
+    "build-win": "npm run package-win && npm run create-win-installer",
+    "package-linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/512x512.png --prune=true --out=release"
   },
   "devDependencies": {
-    "babel-plugin-transform-async-to-generator": "~6.24.1",
-    "babel-preset-env": "~1.6.0",
-    "babel-preset-react": "~6.24.1",
     "electron": "~1.7.5",
     "electron-installer-dmg": "~0.2.1",
     "electron-packager": "~8.7.2",
-    "electron-prebuilt-compile": "~1.7.5",
     "electron-winstaller": "~2.6.3"
   }
 }

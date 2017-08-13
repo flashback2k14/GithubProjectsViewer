@@ -1,4 +1,5 @@
-import { app } from 'electron';
+const electron = require("electron");
+const { app } = electron;
 
 // This is copied directly fron the windows installer documentation:
 // https://github.com/electron/windows-installer
