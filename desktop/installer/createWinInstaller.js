@@ -1,5 +1,6 @@
-import { createWindowsInstaller } from "electron-winstaller";
-import { path } from "path";
+const electronInstaller = require("electron-winstaller");
+const { createWindowsInstaller } = electronInstaller;
+const path = require("path");
 
 getInstallerConfig()
   .then(createWindowsInstaller)
@@ -10,17 +11,17 @@ getInstallerConfig()
 
 function getInstallerConfig () {
   console.log('creating windows installer');
-  const rootPath = path.join('./');
-  const outPath = path.join(rootPath, 'release/win');
+  const rootPath = path.join('../');
+  const outPath = path.join(rootPath, 'desktop-release/release/win');
 
   return Promise.resolve({
-    appDirectory: path.join(outPath, 'ghp-win32-ia32/'),
+    appDirectory: path.join(outPath, 'app-win32-x64/'),
     authors: 'flashback2k14',
     noMsi: true,
-    outputDirectory: path.join(outPath, 'windows-installer'),
-    exe: 'ghp.exe',
+    outputDirectory: path.join(outPath, 'installer'),
+    exe: 'app.exe',
     setupExe: 'ghpInstaller.exe',
-    setupIcon: path.join(rootPath, 'assets', 'win', 'icon.png.ico'),
+    setupIcon: path.join(rootPath, 'assets', 'icons', 'win', 'icon.png.ico'),
     skipUpdateIcon: true,
     versionString: {
       FileDescription: 'View Github Projects built with Vue.js 2 - Desktop',

@@ -1,7 +1,7 @@
 {
   "name": "github-projects-viewer-desktop",
   "description": "View Github Projects built with Vue.js 2 - Desktop",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "main": "index.js",
   "license": "MIT",
   "author": "flashback2k14",
@@ -23,14 +23,14 @@
     "mac-create-installer": "electron-installer-dmg --overwrite --icon=assets/icons/mac/icon.png.icns --out=../desktop-release/release/mac ../desktop-release/release/mac/github-projects-viewer-desktop-darwin-x64/github-projects-viewer-desktop.app/ install-ghp-desktop",
     "mac-build": "npm run mac-clean && npm run mac-package && npm run mac-create-installer",
     "win-clean": "rm -rf ../desktop-release/release/win/",
-    "win-package": "electron-packager . --overwrite --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.png.ico --prune=true --out=../desktop-release/release/win --asar=true --version-string.ProductName=GithubProjectsViewer",
-    "win-create-installer": "node ../desktop-release/installer/createWinInstaller.js",
+    "win-package": "electron-packager . app --overwrite --platform=win32 --arch=x64 --icon=assets/icons/win/icon.png.ico --prune=true --out=../desktop-release/release/win --asar=true --version-string.ProductName=GithubProjectsViewer",
+    "win-create-installer": "node installer/createWinInstaller.js",
     "win-build": "npm run win-clean && npm run win-package && npm run win-create-installer"
   },
   "devDependencies": {
-    "electron": "~1.7.5",
-    "electron-installer-dmg": "~0.2.1",
+    "electron": "^1.7.6",
     "electron-installer-debian": "~0.5.2",
+    "electron-installer-dmg": "~0.2.1",
     "electron-packager": "~8.7.2",
     "electron-winstaller": "~2.6.3"
   }
