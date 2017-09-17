@@ -12,26 +12,15 @@
   "scripts": {
     "start": "electron .",
     "clean": "rm -rf node_modules/ ../desktop-release/release",
-    "debian-clean": "rm -rf ../desktop-release/release/debian",
-    "debian-package": "electron-packager . app --overwrite --platform linux --arch x64 --out dist/",
-    "debian-create-installer": "electron-installer-debian --src dist/app-linux-x64/ --dest dist/ --arch amd64",
-    "debian-copy": "cp -rv dist/ ../desktop-release/release/debian/",
-    "debian-remove": "rm -rf dist/",
-    "debian-build": "npm run debian-clean && npm run debian-package && npm run debian-create-installer && npm run debian-copy && npm run debian-remove",
-    "mac-clean": "rm -rf ../desktop-release/release/mac/",
-    "mac-package": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.png.icns --prune=true --out=../desktop-release/release/mac",
-    "mac-create-installer": "electron-installer-dmg --overwrite --icon=assets/icons/mac/icon.png.icns --out=../desktop-release/release/mac ../desktop-release/release/mac/github-projects-viewer-desktop-darwin-x64/github-projects-viewer-desktop.app/ install-ghp-desktop",
-    "mac-build": "npm run mac-clean && npm run mac-package && npm run mac-create-installer",
-    "win-clean": "rm -rf ../desktop-release/release/win/",
-    "win-package": "electron-packager . app --overwrite --platform=win32 --arch=x64 --icon=assets/icons/win/icon.png.ico --prune=true --out=../desktop-release/release/win --asar=true --version-string.ProductName=GithubProjectsViewer",
-    "win-create-installer": "node installer/createWinInstaller.js",
-    "win-build": "npm run win-clean && npm run win-package && npm run win-create-installer"
+    "package:before:clean": "rm -rf ../desktop-release/release",
+    "package:osx": "electron-packager ./src GithubProjectsViewer --platform darwin --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/mac/icon.png.icns",
+    "package:linux": "electron-packager ./src GithubProjectsViewer --platform linux --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/png/512x512.png",
+    "package:win32": "electron-packager ./src GithubProjectsViewer --platform win32 --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/win/icon.png.ico",
+    "package:after:zip": "zip -r -X ../desktop-release/GithubProjectsViewer-darwin-x64.zip ../desktop-release/release/GithubProjectsViewer-darwin-x64 && zip -r -X ../desktop-release/GithubProjectsViewer-linux-x64.zip ../desktop-release/release/GithubProjectsViewer-linux-x64 && zip -r -X ../desktop-release/GithubProjectsViewer-win32-x64.zip ../desktop-release/release/GithubProjectsViewer-win32-x64",
+    "package:all": "npm run package:before:clean && npm run package:osx && npm run package:linux && npm run package:win32"
   },
   "devDependencies": {
-    "electron": "^1.7.6",
-    "electron-installer-debian": "~0.5.2",
-    "electron-installer-dmg": "~0.2.1",
-    "electron-packager": "~8.7.2",
-    "electron-winstaller": "~2.6.3"
+    "electron": "~1.7.6",
+    "electron-packager": "~8.7.2"
   }
 }
