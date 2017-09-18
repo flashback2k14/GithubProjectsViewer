@@ -1,7 +1,7 @@
 {
   "name": "github-projects-viewer-desktop",
   "description": "View Github Projects built with Vue.js 2 - Desktop",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "main": "index.js",
   "license": "MIT",
   "author": "flashback2k14",
@@ -11,12 +11,11 @@
   },
   "scripts": {
     "start": "electron .",
-    "clean": "rm -rf node_modules/ ../desktop-release/release",
-    "package:before:clean": "rm -rf ../desktop-release/release",
-    "package:osx": "electron-packager ./src GithubProjectsViewer --platform darwin --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/mac/icon.png.icns",
-    "package:linux": "electron-packager ./src GithubProjectsViewer --platform linux --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/png/512x512.png",
-    "package:win32": "electron-packager ./src GithubProjectsViewer --platform win32 --arch x64 --prune --overwrite --out ../desktop-release/release --overwrite --icon assets/icons/win/icon.png.ico",
-    "package:after:zip": "zip -r -X ../desktop-release/GithubProjectsViewer-darwin-x64.zip ../desktop-release/release/GithubProjectsViewer-darwin-x64 && zip -r -X ../desktop-release/GithubProjectsViewer-linux-x64.zip ../desktop-release/release/GithubProjectsViewer-linux-x64 && zip -r -X ../desktop-release/GithubProjectsViewer-win32-x64.zip ../desktop-release/release/GithubProjectsViewer-win32-x64",
+    "clean": "rm -rf node_modules/ ../desktop-release",
+    "package:before:clean": "rm -rf ../desktop-release",
+    "package:osx": "electron-packager . GithubProjectsViewer --platform darwin --arch x64 --prune --overwrite --out ../desktop-release --overwrite --icon assets/icons/mac/icon.png.icns",
+    "package:linux": "electron-packager . GithubProjectsViewer --platform linux --arch x64 --prune --overwrite --out ../desktop-release --overwrite --icon assets/icons/png/512x512.png",
+    "package:win32": "electron-packager . GithubProjectsViewer --platform win32 --arch x64 --prune --overwrite --out ../desktop-release --overwrite --icon assets/icons/win/icon.png.ico",
     "package:all": "npm run package:before:clean && npm run package:osx && npm run package:linux && npm run package:win32"
   },
   "devDependencies": {
