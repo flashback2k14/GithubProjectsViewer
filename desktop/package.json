@@ -1,7 +1,7 @@
 {
   "name": "github-projects-viewer-desktop",
   "description": "View Github Projects built with Vue.js 2 - Desktop",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "main": "index.js",
   "license": "MIT",
   "author": "flashback2k14",
@@ -19,7 +19,7 @@
     "package:all": "npm run package:before:clean && npm run package:osx && npm run package:linux && npm run package:win32"
   },
   "devDependencies": {
-    "electron": "~1.7.6",
-    "electron-packager": "~8.7.2"
+    "electron": "~1.7.8",
+    "electron-packager": "~9.1.0"
   }
 }
