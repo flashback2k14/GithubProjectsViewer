@@ -19,7 +19,7 @@
     "package:all": "npm run package:before:clean && npm run package:osx && npm run package:linux && npm run package:win32"
   },
   "devDependencies": {
-    "electron": "~1.7.8",
+    "electron": "~9.4.0",
     "electron-packager": "~9.1.0"
   }
 }
